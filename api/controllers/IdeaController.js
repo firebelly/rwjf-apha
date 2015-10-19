@@ -86,7 +86,7 @@ module.exports = {
     });
   },
 
-  // spits out json list of images in /queue/ directory for initial form load
+  // spits out json list of images in /:id/ (either idea.id or 'queue') directory for initial form loads
   photos: function(req, res) {
     glob(conf.photos_dir + '/' + req.param('id') + '/*', function (er, files) {
       photos = [];

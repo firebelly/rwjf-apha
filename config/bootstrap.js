@@ -10,9 +10,7 @@
  */
 
 module.exports.bootstrap = function(cb) {
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  
+  // clear out monitor ideas on startup
   Monitor.update({ idea: { '!': null }}, { idea: null }).exec(function clearedMonitors(err, updated) {
   	if (err) return cb(err);
 	  cb();

@@ -43,20 +43,21 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     loading: false
   }
 
-  if ($scope.formMode==='update') {
-    $http.post('/photos/' + $scope.ideaForm.id).then(function onSuccess(sailsResponse){
-      $scope.ideaForm.photos = sailsResponse.data;
-      console.log('/photos/' + $scope.ideaForm.id, sailsResponse, sailsResponse.data);
-    });
-    // $http.post('/idea/update/').then(function onSuccess(sailsResponse){
-    //   $scope.ideaForm.photos = sailsResponse.data;
-    // });
-  } else {
-    // get initial listing of photos in /queue/ folder
-    $scope.ideaForm.id = 'new';
-    $http.post('/photos/queue').then(function onSuccess(sailsResponse){
-      $scope.ideaForm.photos = sailsResponse.data;
-    });
+  $scope.init = function () {
+    console.log('init', $scope.ideaForm.id, $scope.formMode);
+    // get initial listing of photos
+    if ($scope.formMode==='update') {
+      $http.post('/photos/' + $scope.ideaForm.id).then(function onSuccess(sailsResponse){
+        $scope.ideaForm.photos = sailsResponse.data;
+        console.log(sailsResponse);
+      });
+    } else {
+      $scope.ideaForm.id = 'new';
+      $http.post('/photos/queue').then(function onSuccess(sailsResponse){
+        $scope.ideaForm.photos = sailsResponse.data;
+        console.log('/photos/queue', sailsResponse, sailsResponse.data);
+      });
+    }
   }
 
   // watch for updates from socket.io via sails
