@@ -1,0 +1,200 @@
+// Form elements
+
+input {
+  display: block;
+}
+input[type=text],
+input[type=email],
+textarea {
+  width: 100%;
+  padding: .5em;
+  display: block;
+  max-width: 100%;
+  border: 1px solid $gray-light;
+  &:focus, &:active {
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    border-color: $brand-main;
+  }
+  // Error class
+  &.error {
+    color: $orange;
+    border-color: $orange;
+  }
+}
+textarea {
+  height: auto;
+}
+
+.textarea-wrap {
+  position: relative;
+  .character-count {
+    margin: 0;
+    right: 1px;
+    bottom: 1px;
+    font-size: 12px;
+    padding: .5em .7em;
+    position: absolute;
+    pointer-events: none;
+    text-transform: uppercase;
+    &.limit {
+      color: $orange;
+    }
+  }
+}
+
+.instructions {
+  color: $gray;
+  font-size: 12px;
+  margin: 0 0 1em;
+  text-transform: uppercase;
+}
+
+.checkbox-container {
+  margin-bottom: .5em;
+}
+.styled-checkbox {
+  position: absolute; // take it out of document flow
+  opacity: 0; // hide it
+
+  &.-inverted {
+    &:checked + label:before {
+      background: none;
+    }
+    &:checked + label:after {
+      @include at2x('checkmark', 14px, 12px);
+    }
+  }
+
+  label {
+    font-weight: 500;
+  }
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + label:before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    border: 1px solid $black;
+  }
+
+  &:focus + label:before,
+  &:hover + label:before {
+    background: rgba($black,.1);
+  }
+
+  &:checked + label:before {
+    background: $black;
+  }
+  
+  // Disabled state
+  &.disabled + label,
+  &[disabled] + label {
+    color: #b8b8b8;
+  }
+  &.disabled + label:before,
+  &[disabled] + label:before {
+    background: #ddd;
+  }
+
+  // Checkmark. Could be replaced with an image
+  &:checked + label:after {
+    top: 6px;
+    left: 6px;
+    content: '';
+    width: 14px;
+    height: 12px;
+    position: absolute;
+    @include at2x('checkmark-white', 14px, 12px);
+  }
+}
+
+.photo-box {
+  padding: $padding;
+  background: $white;
+  margin-bottom: 18px;
+  border: 1px solid $gray-light;
+  ol {
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    li {
+      cursor: pointer;
+      list-style: none;
+      position: relative;
+      padding-right: 10px;
+      margin-bottom: 24px;
+      counter-increment: step-counter;
+      // Custom ordered-list numbers
+      &::after {
+        left: 0;
+        bottom: -16px;
+        font-size: 12px;
+        position: absolute;
+        content: counter(step-counter);
+      }
+      // The selected item
+      &.-selected {
+        img {
+          opacity: 1;
+        }
+        // Add the checkmark
+        &::before {
+          top: 50%;
+          left: 50%;
+          z-index: 1;
+          content: '';
+          width: 28px;
+          height: 24px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          @include at2x('checkmark-white-lrg', 28px, 24px);
+        }
+      }
+      &:hover, &:focus {
+        img {
+          opacity: .75;
+        }
+      }
+
+      img {
+        opacity: .4;
+        vertical-align: top;
+        transition: opacity .2s ease-out;
+        -webkit-backface-visibility: hidden;
+      }
+    }
+  }
+}
+
+// Search form
+.post-search {
+  position: relative;
+  input {
+    font-size: 12px;
+    font-weight: 300;
+  }
+  button {
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    width: 30px;
+    border: none;
+    background: $white;
+    position: absolute;
+    .icon {
+      width: 12px;
+      height: 12px;
+      fill: $brand-main;
+    }
+  }
+}

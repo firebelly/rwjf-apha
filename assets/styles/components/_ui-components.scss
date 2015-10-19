@@ -1,0 +1,62 @@
+// UI Components
+
+.btn {
+  height: 72px;
+  border: none;
+  color: $white;
+  padding: 0 1em;
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 72px;
+  background: $black;
+  text-align: center;
+  text-transform: uppercase;
+  &:hover, &:focus {
+    background: $brand-main;
+  }
+}
+
+// Tooltips
+[data-tooltip] {
+  z-index: 2;
+  cursor: pointer;
+  position: relative;
+  &::before,
+  &::after {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-out;
+  }
+  &::before {
+    top: 100%;
+    left: 50%;
+    color: #fff;
+    width: 70px;
+    padding: 7px;
+    margin-top: 8px;
+    font-size: 12px;
+    position: absolute;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    text-align: center;
+    transform: translateX(-50%);
+    content: attr(data-tooltip);
+    background-color: rgba(0,0,0,.9);
+  }
+    &::after {
+    width: 0;
+    top: 100%;
+    left: 50%;
+    content: "";
+    position: absolute;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(0,0,0,.9);
+  }
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,26 @@
+# sails
+.sails
+.waterline
+.rigging
+.tmp
+
+# node.js / npm
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+npm-debug.log
+.DS_STORE
+
+node_modules
+.sass-cache
+
+# config/local.js

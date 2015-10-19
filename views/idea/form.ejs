@@ -1,0 +1,91 @@
+<form method="post" ng-submit="submitIdeaForm()" class="form-idea" name="idea" ng-controller="IdeaFormController" ng-cloak ng-init="ideaForm=<%= JSON.stringify(idea) %>">
+  <h2>Select Photo</h2>
+  <div class="photo-box">
+    <ol class="photo-select grid">
+      <li ng-repeat="photo in ideaForm.photos" ng-click="selectPhoto(photo.name)" class="flex-item one-fourth" ng-class="{'-selected': photo.name == ideaForm.photo}"><img ng-src="{{ photo.src }}"></li>
+    </ol>
+    <input type="hidden" ng-model="ideaForm.photo">
+  </div>
+  <div class="no-photo checkbox-container"><input class="styled-checkbox -inverted" ng-click="clearPhoto()" id="{{ ideaForm.id }}-no-photo" type="checkbox" value="no-photo" ng-model="ideaForm.no_photo" name="no_photo"><label for="{{ ideaForm.id }}-no-photo">No photo</label></div>
+
+  <div class="idea-section grid">
+    <div class="flex-item target-areas one-third">
+      <div>
+        <h2>Action Area(s) Targeted</h2>
+        <p class="instructions">(Check all that apply)</p>
+
+        <div class="checkbox-container" ng-repeat="action_area in action_areas">
+          <input id="{{ ideaForm.id }}-{{ action_area | slugify }}" class="styled-checkbox" type="checkbox" ng-checked="ideaForm.action_areas.indexOf(action_area) > -1"
+    ng-click="toggleAction(action_area)"><label for="{{ ideaForm.id }}-{{ action_area | slugify }}">{{action_area}}</label>
+        </div>
+
+      </div>
+      <div>
+        <h2>Outcome Area(s) Targeted</h2>
+        <p class="instructions">(Check all that apply)</p>
+
+        <div class="checkbox-container" ng-repeat="outcome_area in outcome_areas">
+          <input id="{{ ideaForm.id }}-{{ outcome_area | slugify }}" class="styled-checkbox" type="checkbox" ng-checked="ideaForm.outcome_areas.indexOf(outcome_area) > -1"
+    ng-click="toggleOutcome(outcome_area)"><label for="{{ ideaForm.id }}-{{ outcome_area | slugify }}">{{outcome_area}}</label>
+        </div>
+
+      </div>
+    </div>
+    <div class="flex-item idea-info two-thirds">
+      <h2>Idea name</h2>
+      <div class="textarea-wrap">
+        <textarea class="has-char-limit idea-name" name="idea_name" ng-model="ideaForm.idea_name" maxlength="36" ng-maxlength="36" required></textarea>
+        <p class="character-count">{{ ideaForm.idea_name.length || 0 }}/36 CHARACTERS</p>
+      </div>
+      <h2>Idea</h2>
+      <div class="textarea-wrap">
+        <textarea class="has-char-limit idea-content" name="idea_content" ng-model="ideaForm.idea_content" maxlength="140" ng-maxlength="140" required></textarea>
+        <p class="character-count">{{ ideaForm.idea_content.length || 0 }}/140 CHARACTERS</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="submittee-info">
+    <div class="grid">
+      <div class="input-container flex-item user-name-first">
+        <label for="{{ ideaForm.id }}-user-name-first">First Name</label>
+        <input type="text" name="first_name" ng-model="ideaForm.first_name" id="{{ ideaForm.id }}-user-name-first" placeholder="Larry" required>
+      </div>
+      <div class="input-container flex-item user-name-middle">
+        <label for="{{ ideaForm.id }}-user-name-middle">M.I.</label>
+        <input type="text" name="middle" ng-model="ideaForm.middle" id="{{ ideaForm.id }}-user-name-middle" placeholder="I">      
+        <p class="instructions">(Optional)</p>        
+      </div>
+      <div class="input-container flex-item user-name-last">
+        <label for="{{ ideaForm.id }}-user-name-last">Last Name</label>
+        <input type="text" name="last_name" ng-model="ideaForm.last_name" id="{{ ideaForm.id }}-user-name-last" placeholder="Dolor" required>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="input-container flex-item user-org">
+        <label for="{{ ideaForm.id }}-user-organization">Organization Name</label>
+        <input type="text" name="organization" ng-model="ideaForm.organization" id="{{ ideaForm.id }}-user-organization" placeholder="Sit Amet Consectetur">
+        <p class="instructions">(Optional)</p>
+      </div>
+      <div class="input-container flex-item user-email">
+        <label for="{{ ideaForm.id }}-user-email">Email</label>
+        <input type="email" name="email" ng-model="ideaForm.email" id="{{ ideaForm.id }}-useremail" placeholder="lipsum@lsp.com">
+      </div>
+      <div class="input-container flex-item user-twitter">
+        <label for="{{ ideaForm.id }}-user-twitter">Twitter Handle</label>
+        <input type="text" name="twitter" ng-model="ideaForm.twitter" id="{{ ideaForm.id }}-user-twitter" placeholder="@palimpsest45BCE">
+        <p class="instructions">(Optional)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-section">
+    <div class="grid">
+      <div class="checkbox-container flex-item"><input class="styled-checkbox -inverted" id="{{ ideaForm.id }}-publish-on-save" type="checkbox" value="1" name="published" ng-model="ideaForm.published"><label for="{{ ideaForm.id }}-publish-on-save">Publish on save</label></div>
+      <input type="submit" value="Save" class="submit btn flex-item">
+    </div>
+  </div>
+
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+</form>

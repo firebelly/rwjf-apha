@@ -1,0 +1,65 @@
+// Header
+
+.site-header {
+  height: 60px;
+  color: $white;
+  @extend .grid;
+  margin-bottom: $padding;
+  background: linear-gradient(to right, $black 0%, $black 50%, $brand-main 51%, $brand-main 100%);
+
+  h1 {
+    margin: 0;
+    float: left;
+    height: 60px;
+    color: $white;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 66px;
+    background: $black;
+    padding: 0 60px 0 30px;
+    text-transform: uppercase;
+    border-right: 1px solid $white;
+  }
+}
+
+.site-nav {
+  float: left;
+  ul {
+    margin: 0;
+    padding: 0;
+    @include clearfix();
+    li {
+      float: left;
+      list-style: none;
+      border-right: 1px solid $white;
+      &.active {
+        a {
+          height: 72px;
+        }
+      }
+    }
+  }
+  a {
+    height: 60px;
+    display: block;
+    padding: 0 60px;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 60px;
+    text-decoration: none;
+    background: $brand-main;
+    transition: height .2s ease-out;
+    &:hover, &:focus {
+      height: 66px;
+    }
+  }
+}
+
+.page-title {
+  align-items: flex-end;
+  margin: $padding auto;
+  h1 {
+    margin: 0;
+    line-height: .8em;
+  }
+}

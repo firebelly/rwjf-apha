@@ -1,0 +1,94 @@
+// New Post view
+.post-edit {
+
+  // No photo checkbox
+  .no-photo {
+    label {
+      font-weight: 500;
+    }
+  }
+
+  .idea-section {
+    margin: $padding / 2 0;
+    border-top: 1px solid $gray-light;
+    border-bottom: 1px solid $gray-light;
+
+    > .flex-item {
+      padding-top: $padding / 1.5;
+      padding-bottom: $padding / 1.5;
+    }
+
+    .target-areas {
+      padding-right: $padding / 2;
+      border-right: 1px solid $gray-light;
+      > div {
+        &:first-of-type {
+          margin-bottom: $padding / 2;
+        }
+      }
+      h2 {
+        margin-bottom: 0;
+      }
+      label {
+        font-weight: 500;
+      }
+    }
+
+    .idea-info {
+      padding-left: $padding;
+      .idea-name {
+        margin-bottom: $padding / 2;
+      }
+      .idea-content {
+        min-height: 200px;
+      }
+    }
+  }
+
+  .submittee-info {
+    .grid {
+      justify-content: space-between;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      color: $brand-main;
+      margin-bottom: .25em;
+    }
+
+    // top
+    .user-name-first,
+    .user-name-last {
+      flex-grow: 2;
+    }
+    .user-name-middle {
+      padding: 0 35px;
+    }
+
+    // bottom
+    .user-org,
+    .user-email {
+      flex-grow: 2;
+      padding-right: 35px;
+    }
+  }
+
+  .submit-section {
+    @include clearfix();
+    margin-top: $padding / 1.5;
+    .checkbox-container {
+      display: flex;
+      padding-right: $padding;
+      label {
+        margin: auto;
+        font-weight: 500;
+      }
+    }
+    .submit {
+      flex-grow: 2;
+    }
+  }
+
+}

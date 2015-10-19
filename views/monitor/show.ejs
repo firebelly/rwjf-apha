@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>RWJF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/angular-toastr.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <!--STYLES END-->
+</head>
+<body ng-app="MonitorApp">
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
+
+  <main id="monitor" ng-controller="MonitorController" ng-class="{'no-photo': monitor.idea.no_photo }" ng-cloak ng-init="monitor=<%= JSON.stringify(monitor) %>; conf=<%= JSON.stringify(sails.config.custom) %>;">
+    <img ng-src="{{ conf.photos_base_url }}/{{ monitor.idea.id }}/{{ monitor.idea.photo }}">
+    <h3>{{ monitor.idea.idea_name }}</h3>
+    <h1>{{ monitor.idea.idea_content }}</h1>
+    <p>{{ monitor.idea.full_name }}</p>
+    <p>{{ monitor.idea.twitter }}</p>
+    <p>{{ monitor.idea.organization }}</p>
+  </main>
+
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/dependencies/angular.js"></script>
+  <script src="/js/dependencies/angular-sails.js"></script>
+  <script src="/js/dependencies/angular-toastr.tpls.js"></script>
+  <script src="/js/dependencies/jquery-1.11.1.js"></script>
+  <script src="/js/dependencies/modernizr.custom.js"></script>
+  <script src="/js/IdeaApp.js"></script>
+  <script src="/js/MonitorApp.js"></script>
+  <script src="/js/main.js"></script>
+  <!--SCRIPTS END-->
+
+</body>
+</html>

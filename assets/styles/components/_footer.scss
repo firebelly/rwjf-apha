@@ -1,0 +1,26 @@
+// Footer
+
+.site-footer {
+  color: $white;
+  padding: $padding;
+  background: $gray;  
+  margin-top: $padding * 2;
+
+  .-left {
+    align-self: flex-end;
+  }
+  p {
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  .-right {
+    text-align: right;
+  }
+  .logo {
+    width: 145px;
+    height: 72px;
+    display: inline-block;
+    @include at2x('rwjflogo', 145px, 72px);
+  }
+}

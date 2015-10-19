@@ -1,0 +1,172 @@
+// Posts list view
+.all-posts {
+
+}
+
+.posts-list {
+  margin: 0;
+  padding: 0;
+
+  .post-list-labels {
+    .actions {
+      text-align: right;
+    }
+  }
+
+  li {
+    &:first-of-type {
+      .post-info {
+        border-top: 1px solid $gray-light;
+      }
+    }
+    // Active post
+    &.active {
+      background: $gold;
+      .post-info {
+        display: none; 
+      }
+      .post-edit {
+        display: block;
+        padding-bottom: $padding;
+
+        h2 {
+          color: $white;
+        }
+
+        .idea-section {
+          border-color: $white;
+          .target-areas {
+            border-color: $white;
+          }
+        }
+
+        .submittee-info {
+          label {
+            color: $white;
+          }
+        }
+
+        // Form elements
+        input, 
+        input[type=email],
+        textarea {
+          border: none;
+        }
+      }
+    }
+  }
+
+  .post-info {
+    height: 72px;
+    color: $gray-dark;
+    position: relative;
+    align-items: center;
+    transition: background .2s ease-out;
+    border-bottom: 1px solid $gray-light;
+    &::before,
+    &::after {
+      top: -1px;
+      opacity: 0;
+      width: 30px;
+      content: '';
+      bottom: -1px;
+      position: absolute;
+      background: $brand-main;
+      transition: opacity .2s ease-out;
+      border-top: 1px solid $gray-light;
+      border-bottom: 1px solid $gray-light;
+    }
+    &::before {
+      left: 0;
+      transform: translateX(-100%);
+    }
+    &::after {
+      right: 0;
+      transform: translateX(100%);
+    }
+    &:hover, &:focus {
+      color: $white;
+      background: $brand-main;
+      &::before,
+      &::after {
+        opacity: 1;
+      }
+      h2 {
+        color: $white;
+      }
+    }
+    h2 {
+      margin: 0;
+      color: $gray-dark;
+    }
+    .actions {
+      text-align: right;
+      .publish {
+        margin-right: $padding;
+      }
+      a {
+        &:hover, &:focus {
+          .icon {
+            fill: $white;
+          }
+        }
+        &.active .icon {
+          fill: $black;
+        }
+      }
+      .icon {
+        fill: $gray-light;
+      }
+      .icon-star {
+        width: 25px;
+        height: 24px;
+      }
+      .icon-edit {
+        width: 19px;
+        height: 24px;
+      }
+    }
+  }
+
+  .post {
+    h1 {
+      color: $black;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .post-edit {
+      display: none;
+    }
+    .post-header {
+      height: 96px;
+      align-items: center;
+      h1 {
+        margin: 0;
+        flex-grow: 4;
+      }
+      .post-toggle {
+      }
+    }
+  }
+
+  // Post toggle button
+  .post-toggle {
+    border: none;
+    background: none;
+    display: inline-block;
+    &:focus, &:active {
+      outline: none;
+      -webkit-appearance: none;
+    }
+    &:hover, &:focus {
+      .icon-x {
+        fill: $gray-light;
+      }
+    }
+    .icon-x {
+      width: 18px;
+      height: 18px;
+      fill: $white;
+    }
+  }
+}
