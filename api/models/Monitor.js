@@ -25,7 +25,7 @@ module.exports = {
               used_ids.push(monitor.idea);
             }
           });
-          // console.log(used_ids, monitors);
+          // console.log('Used IDs', used_ids, monitors);
 
           Idea.find().where({ published: true, id: { '!': used_ids }}).sort({ num_views: 'ASC' }).limit(1).exec(function foundIdeas(err2, ideas) {
             if (err2) {
@@ -43,7 +43,7 @@ module.exports = {
               // could set this, and unset on socket disconnect for monitors, and then query Idea.find().where({ monitor: null })
               // idea.monitor = monitor.id;
               idea.save();
-              console.log('Monitor '+this_monitor.id+' refreshed, idea: '+idea.id+' ('+idea.idea_name+')');
+              // console.log('Monitor '+this_monitor.id+' refreshed, idea: '+idea.id+' ('+idea.idea_name+')');
               return this_monitor;
             }
           }); // good

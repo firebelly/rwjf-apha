@@ -4,44 +4,23 @@
 }
 
 html {
+  height: 100%;
   box-sizing: border-box;
 }
 
 body {
-	font-size: 16px; //Em base unit
-	font-size: 100%;
+  font-size: 16px; //Em base unit
+  font-size: 100%;
   font-family: $sans;
 }
 
-h1 {
-  font-size: 48px;
-  line-height: 1em;
-  font-weight: bold;
-  color: $gray-dark;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: $brand-main;
-}
-
-p {
-  font-size: 1em;
-  line-height: 1.25em;
-}
-
 a {
-	color: inherit;
-  &:focus {
-    outline: none;
-  }
+  color: inherit;
 }
 
 img {
   height: auto;
-	max-width: 100%;
+  max-width: 100%;
 }
 
 // Utility classes
@@ -59,19 +38,4 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
 .hidden { // http://a11yproject.com/posts/how-to-hide-content/
   display: none;
   visibility: hidden;
-}
-
-.wrap {
-  width: 900px;
-  margin: 0 auto;
-  padding: 0 10px;
-  position: relative;
-  @include clearfix();
-  @include min-screen($bpMd) {
-    // set breakpoints on a per-module basis when possible
-  }
-}
-
-.site-main {
-  margin-bottom: 276px; 
 }

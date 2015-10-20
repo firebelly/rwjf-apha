@@ -25,7 +25,8 @@ module.exports = {
     email: { type: 'string' },
     twitter: { type: 'string' },
     published: { type: 'boolean' },
-
+    
+    num_likes: { type: 'integer' },
     last_monitor_id: { type: 'string'},
     num_views: { type: 'integer', defaultsTo: 0 },
 
@@ -60,6 +61,8 @@ module.exports = {
     }
     if (values.photo) {
       values.photo_url = conf.photos_base_url + '/' + values.id + '/' + values.photo;
+    } else if (values.no_photo) {
+      values.photo_url = '';
     }
     cb();
   }

@@ -29,6 +29,8 @@
 
 // Components
 @import "components/base";
+@import "components/cms-base";
+@import "components/monitor-view-base";
 @import "components/header";
 @import "components/footer";
 @import "components/ui-components";
@@ -37,9 +39,3 @@
 // Pages
 @import "pages/new-post";
 @import "pages/all-posts";
-
-// For example:
-//
-// @import 'foundation.scss';
-//
-// etc.

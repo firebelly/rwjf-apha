@@ -1,0 +1,331 @@
+// Monitor View Base Styles
+.monitor-view {
+  height: 100%;
+  color: $white;
+  background: $purple;
+
+  h1 {
+    margin: 0;
+    font-size: 36px;
+    line-height: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  main {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    @include clearfix();
+    @include min-screen($bpMd) {
+      // set breakpoints on a per-module basis when possible
+    }
+  }
+
+  .post {
+    height: 100%;
+    .post-content {
+      position: relative;
+      background: $purple;
+      flex-basis: 14*$column;
+      padding: 100px 100px 100px ($column*5);
+      &::before {
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        content: '';
+        height: 35%;
+        position: absolute;
+        border-right: 30px solid #fff;
+        border-top: 30px solid transparent;
+      }
+      &::after {
+        top: 0;
+        right: 0;
+        z-index: 1;
+        content: '';
+        height: 65%;
+        position: absolute;
+        border-right: 30px solid #fff;
+        border-bottom: 30px solid transparent;
+      }
+      .right-border {
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        right: -4px;
+        background: $white;
+        position: absolute;
+      }
+
+      &.has-been-liked {
+        .blur {
+          -webkit-filter: blur(20px);
+        }
+      }
+      .blur {
+        filter: blur(0);
+        transition: -webkit-filter 1s ease-out;
+      }
+
+      .post-content-wrap {
+        z-index: 1;
+        position: relative;
+      }
+
+      .idea-title {
+        h1 {
+          margin: 0;
+        }
+      }
+      .idea {
+        padding: 0;
+        margin: 62px 0;
+        font-kerning: normal;
+        p {
+          margin: 0;
+          hyphens: auto;
+          font-size:  96px;
+          font-weight: bold;
+          word-spacing: -.06em;
+          line-height: .9375em;
+          word-break: break-all;
+        }
+      }
+      .post-meta {
+        p {
+          margin: 0;
+          font-size: 36px;
+          line-height: 1.166666667em;
+        }
+      }
+    }
+
+    .post-image {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      background: white;
+      position: absolute;
+      // mix-blend-mode: multiply;
+      &::before {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        content: '';
+        position: absolute;
+        background-image: linear-gradient(90deg, rgba(255,255,255,0) 5%, rgba($purple,1) 45%);
+      }
+      &::after {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        content: '';
+        position: absolute;
+        background: $purple;
+        mix-blend-mode: color;
+      }
+
+      img {
+        width: auto;
+        height: 100%;
+        max-width: none;
+        vertical-align: top;
+        mix-blend-mode: hard-light;
+        transform: translateX(-48%);
+        filter: grayscale(100%) brightness(80%);
+      }
+    }
+
+    .post-aside {
+      z-index: 2;
+      display: flex;
+      position: relative;
+      align-items: flex-end;
+      flex-basis: 4*$column;
+      padding: 100px 100px 316px 100px;
+      &::before {
+        left: -26px;
+        bottom: 0;
+        content: '';
+        height: 35%;
+        position: absolute;
+        margin-bottom: -1px;
+        border-right: 30px solid $purple;
+        border-top: 30px solid transparent;
+      }
+      &::after {
+        top: 0;
+        left: -26px;
+        content: '';
+        height: 65%;
+        margin-top: -1px;
+        position: absolute;
+        border-right: 30px solid $purple;
+        border-bottom: 30px solid transparent;
+      }
+
+      .likes {
+        left: 0;
+        right: 0;
+        margin: 0;
+        bottom: 100px;
+        position: absolute;
+        p {
+          color: inherit;
+          font-size: 36px;
+          font-weight: 200;
+          text-align: center;
+        }
+        .icon-heart {
+          width: 27px;
+          height: 24px;
+        }
+      }
+
+      .like-this-view {
+        width: 100%;
+        color: $white;
+        .like-this-action {
+          p {
+            margin: 0;
+            font-size: 96px;
+            font-weight: 200;
+            line-height: 1em;
+            text-align: center;
+          }
+        }
+        .like-this {
+          width: 132px;
+          height: 132px;
+          display: flex;
+          background: none;
+          border-radius: 50%;
+          margin: $padding auto 0;
+          border: 5px solid $white;
+          &:focus {
+            outline: none;
+          }
+          .icon {
+            width: 54px;
+            margin: auto;
+            height: 48px;
+            fill: $white;
+          }
+        }
+        .likes {
+          .icon-heart {
+            fill: $white;
+          }
+        }
+      }
+
+      .liked-view {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        display: flex;
+        color: $purple;
+        margin-left: 26px;
+        text-align: center;
+        background: $white;
+        position: absolute;
+        align-items: flex-end;
+        transform: translateX(100%);
+        padding: 100px 100px 316px 100px;
+        transition: transform 1s cubic-bezier(0.78,-0.09, 0.11, 1.03), margin 1s ease-out;
+        &.active {
+          margin-left: 0;
+          transform: translateX(0);
+        }
+        // cutout
+        &::before {
+          bottom: 0;
+          left: -26px;
+          content: '';
+          height: 35%;
+          position: absolute;
+          border-right: 30px solid $white;
+          border-top: 30px solid transparent;
+        }
+        &::after {
+          top: 0;
+          left: -26px;
+          content: '';
+          height: 65%;
+          position: absolute;
+          border-right: 30px solid $white;
+          border-bottom: 30px solid transparent;
+        }
+  
+        .liked-view-wrap {
+          text-align: center;
+          > .icon-heart {
+            width: 60px;
+            height: 54px;
+            fill: $purple;
+            margin: 0 auto 30px;
+            display: inline-block;
+          }
+        }
+
+        h3 {
+          font-size: 72px;
+          margin: 0 0 .5em;
+          font-weight: 200;
+          line-height: .916666667em;
+        }
+
+        p {
+          font-size: 30px;
+          font-weight: 200;
+          line-height: 1.2em;
+        }
+
+        .close-like {
+          width: 94px;
+          height: 94px;
+          display: flex;
+          background: none;
+          transform: rotate(45deg);
+          border: 5px solid $purple;
+          margin: $padding auto 16px;
+          &:focus {
+            outline: none;
+          }
+          .icon {
+            width: 47px;
+            height: 27px;
+            margin: auto;
+            fill: $purple;
+            transform: rotate(-45deg);
+          }
+        }
+
+        .likes {
+          p {
+            font-size: 36px;
+            font-weight: 200;
+          }
+          .icon-heart {
+            fill: $purple;
+          }
+        }
+      }
+    }
+  }
+
+}

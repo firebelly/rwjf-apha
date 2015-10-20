@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>RWJF Monitor HQ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/angular-toastr.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <!--STYLES END-->
+</head>
+<body ng-app="MonitorApp">
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
+
+  <main id="monitor-hq" ng-controller="MonitorHQController" ng-init="conf=<%= JSON.stringify(sails.config.custom) %>;">
+  <h1>Monitors:</h1>
+  <ul>
+    <li ng-repeat="monitor in monitors">
+      Monitor {{ monitor.id }}: showing Idea {{ monitor.idea.id }} ({{ monitor.idea.idea_name}})
+    </li>
+  </ul>
+  <h3>Log:</h3>
+  <textarea cols="30" rows="10" style="width: 100%; height: 500px; overflow: scroll;">{{ log }}</textarea>
+  </main>
+
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/dependencies/angular.js"></script>
+  <script src="/js/dependencies/angular-sails.js"></script>
+  <script src="/js/dependencies/angular-toastr.tpls.js"></script>
+  <script src="/js/dependencies/jquery-1.11.1.js"></script>
+  <script src="/js/dependencies/modernizr.custom.js"></script>
+  <script src="/js/IdeaApp.js"></script>
+  <script src="/js/MonitorApp.js"></script>
+  <!--SCRIPTS END-->
+
+</body>
+</html>

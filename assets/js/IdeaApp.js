@@ -67,10 +67,10 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
   // watch for updates from socket.io via sails
   var imageHandler = $sails.on('photos', function (message) {
     if (message.verb === 'add') {
-      $scope.ideaForm.photos.push(message.image);
+      $scope.ideaForm.photos.push(message.photo);
     }
     else if (message.verb === 'unlink') {
-      var idx = $scope.ideaForm.photos.indexOf(message.image);
+      var idx = $scope.ideaForm.photos.indexOf(message.photo);
       $scope.ideaForm.photos.splice(idx, 1);
     }
   });
@@ -124,7 +124,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
       published: $scope.ideaForm.published
     })
     .then(function onSuccess(sailsResponse){
-      console.log(sailsResponse);
+      // console.log(sailsResponse);
       if ($scope.formMode==='update') {
         toastr.success('Post saved OK!');
         // propagate updates to parent IdeaListController controller

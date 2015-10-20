@@ -17,20 +17,20 @@ var watcher = chokidar.watch(conf.photos_dir + '/queue/', {
   persistent: true
 });
 
-// if image is added, broadcast with socket
+// if photo is added, broadcast with socket
 watcher.on('add', function(file) { 
   var filename = path.basename(file);
-  var image = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
-  console.log('File', file, 'has been added');
-  sails.sockets.blast('photos', { verb: 'add', image: image });
+  var photo = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
+  console.log('File', file, photo, 'has been added');
+  sails.sockets.blast('photos', { verb: 'add', photo: photo });
 });
 
-// similarly, if image is deleted tell Angular
+// similarly, if photo is deleted tell Angular
 watcher.on('unlink', function(file) { 
   console.log('File', file, 'has been unlinked');
   var filename = path.basename(file);
-  var image = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
-  sails.sockets.blast('photos', { verb: 'unlink', image: image });
+  var photo = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
+  sails.sockets.blast('photos', { verb: 'unlink', photo: photo });
 });
 
 module.exports = {
