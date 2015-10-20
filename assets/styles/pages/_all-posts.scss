@@ -92,6 +92,30 @@
       h2 {
         color: $white;
       }
+      .actions {
+        a {
+          &:hover, &:focus {
+            .icon {
+              fill: $white;
+            }
+          }
+          &.active .icon {
+            fill: $white;
+            &:hover, &:focus {
+              .icon {
+                fill: $black;
+              }
+            }
+          }
+        }
+        button.edit-post {
+          &:hover, &:focus {
+            .icon {
+              fill: $black; 
+            }
+          }
+        }
+      }
     }
     h2 {
       margin: 0;
@@ -103,13 +127,8 @@
         margin-right: $padding;
       }
       a {
-        &:hover, &:focus {
-          .icon {
-            fill: $white;
-          }
-        }
         &.active .icon {
-          fill: $black;
+          fill: $brand-main;
         }
       }
       .icon {

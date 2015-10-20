@@ -23,4 +23,7 @@ npm-debug.log
 node_modules
 .sass-cache
 
+# site fonts
+fonts
+
 # config/local.js

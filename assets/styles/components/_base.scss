@@ -34,6 +34,9 @@ p {
 
 a {
 	color: inherit;
+  &:focus {
+    outline: none;
+  }
 }
 
 img {
@@ -67,4 +70,8 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
   @include min-screen($bpMd) {
     // set breakpoints on a per-module basis when possible
   }
+}
+
+.site-main {
+  margin-bottom: 176px; 
 }

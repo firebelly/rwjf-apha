@@ -1,9 +1,14 @@
 // Footer
 
 .site-footer {
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
   color: $white;
+  position: fixed;
   padding: $padding;
-  background: $gray;  
+  background: $gray;
   margin-top: $padding * 2;
 
   .-left {
