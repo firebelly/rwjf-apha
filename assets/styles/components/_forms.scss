@@ -191,10 +191,27 @@ textarea {
     border: none;
     background: $white;
     position: absolute;
+    &:focus {
+      outline: none;
+    }
+    &.close-button {
+      .icon-search {
+        display: none;
+      }
+      .icon-x {
+        display: block;
+      }
+    }
     .icon {
       width: 12px;
       height: 12px;
       fill: $brand-main;
+    }
+    .icon-search {
+      display: block;
+    }
+    .icon-x {
+      display: none;
     }
   }
 }
