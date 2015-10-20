@@ -28,7 +28,7 @@
         <nav class="site-nav" role="navigation"> 
           <ul>
             <li class="new-post <%= formMode=='create' ? 'active' : '' %>"><a href="/idea/new">New Post</a></li>
-            <li class="posts <%= formMode=='list' ? 'active' : '' %>"><a href="/ideas">All Posts <%= numIdeas %>)</a></li>
+            <li class="posts <%= formMode=='list' ? 'active' : '' %>"><a href="/ideas">All Posts (<%= numIdeas %>)</a></li>
           </ul>
         </nav>
       </div>

@@ -45,6 +45,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
 
   $scope.init = function () {
     console.log('init', $scope.ideaForm.id, $scope.formMode);
+    $scope.$parent.idea = $scope.ideaForm;
     // get initial listing of photos
     if ($scope.formMode==='update') {
       $http.post('/photos/' + $scope.ideaForm.id).then(function onSuccess(sailsResponse){
