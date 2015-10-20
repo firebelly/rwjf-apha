@@ -19,6 +19,7 @@ module.exports = {
       }
     });
   },
+  // refresh a monitor's idea (see models/Monitor.js)
   refresh: function(req, res, next) {
     Monitor.findOne(req.param('id'), function foundMonitor (err, monitor) {
       if (err) return next(err);
@@ -27,25 +28,24 @@ module.exports = {
       Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor (err, refreshed_monitor) {
         if (req.wantsJSON) {
           return res.json(refreshed_monitor);
-        }
-        else {
+        } else {
           res.redirect('/monitor/'+monitor.id);
         }
       });
     });
   },
+  // 
   show: function(req, res, next) {
     Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor (err, monitor) {
       if (err) return next(err);
       if (!monitor) return next();
       req.session.monitor = monitor;
-      console.log(req.session);
+      // console.log(req.session);
       res.view('monitor/show', {
         monitor: monitor,
         layout: false
       });
     });
   }
-
   
 };
