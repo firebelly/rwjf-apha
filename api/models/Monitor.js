@@ -43,7 +43,7 @@ module.exports = {
               // could set this, and unset on socket disconnect for monitors, and then query Idea.find().where({ monitor: null })
               // idea.monitor = monitor.id;
               idea.save();
-              console.log('Monitor '+this_monitor.id+' refreshed');
+              console.log('Monitor '+this_monitor.id+' refreshed, idea: '+idea.id+' ('+idea.idea_name+')');
               return this_monitor;
             }
           }); // good

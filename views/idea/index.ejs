@@ -21,13 +21,13 @@
         <div class="wrap">
           <div class="post-info grid">
             <div class="post-author flex-item one-third">
-              <h2 ng-model="idea.full_name"><%= idea.full_name %></h2>
+              <h2>{{ idea.full_name }}</h2>
             </div>
             <div class="post-name flex-item one-third">
-              <h2 ng-model="idea.idea_name"><%= idea.idea_name %></h2>
+              <h2>{{ idea.idea_name }}</h2>
             </div>
             <div class="actions flex-item one-third">
-              <a href="#" ng-click="togglePublished()" ng-class="{'active': idea.published}" class="publish <%= idea.published ? 'active' : ''%>" data-tooltip="Publish"><span class="visually-hidden">Publish</span><svg class="icon icon-star" role="img"><use xlink:href="#icon-star"></use></svg></a>
+              <a href="#" ng-click="togglePublished()" ng-class="{'active': idea.published}" class="publish <%= idea.published ? 'active' : ''%>" data-tooltip="{{ getPublishedVerb() }}"><span class="visually-hidden">Publish</span><svg class="icon icon-star" role="img"><use xlink:href="#icon-star"></use></svg></a>
               <button ng-click="toggleEditing()" class="edit-post post-toggle" data-tooltip="Edit"><span class="visually-hidden">Edit</span><svg class="icon icon-edit" role="img"><use xlink:href="#icon-edit"></use></svg></button>
             </div>
           </div>
