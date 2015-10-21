@@ -9,30 +9,30 @@ module.exports = {
   schema: false,
   
   attributes: {
+    is_paused: { type: 'boolean', defaultsTo: false },
     idea: { 
-      model: 'idea' 
+      model: 'idea',
     },
     refresh: function() {
       var this_monitor = this;
       var used_ids = [];
-      Monitor.find(function foundMonitors(err1, monitors) {
-        if (err1) {
-          sails.log.error(err1);
+      Monitor.find(function foundMonitors(err, monitors) {
+        if (err) {
+          sails.log.error(err);
         } else {
           _.each(monitors, function(monitor) {
-            // console.log(monitor);
             if (monitor.idea) {
               used_ids.push(monitor.idea);
             }
           });
-          // console.log('Used IDs', used_ids, monitors);
+          // sails.log.info('Used IDs', used_ids, monitors);
 
-          Idea.find().where({ published: true, id: { '!': used_ids }}).sort({ num_views: 'ASC' }).limit(1).exec(function foundIdeas(err2, ideas) {
-            if (err2) {
-              sails.log.error(err2);
-              next(err2);
+          Idea.find().where({ published: true, id: { '!': used_ids }}).sort({ num_views: 'ASC' }).limit(1).exec(function foundIdeas(err, ideas) {
+            if (err) {
+              sails.log.error(err);
+              next(err);
             } else if (ideas.length === 0) {
-              sails.log.error('All ideas are being shown');
+              // sails.log.error('All ideas are being shown');
               return this;
               // this is a problem since there won't be 6 to start with. should we filter out the used_ids later, maybe with lodash, only if num_ideas > num_monitors?
             } else {

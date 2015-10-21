@@ -10,15 +10,11 @@
   <!--STYLES END-->
 </head>
 <body ng-app="MonitorApp">
-  <!--TEMPLATES-->
-  
-  <!--TEMPLATES END-->
-
   <main id="monitor-hq" ng-controller="MonitorHQController" ng-init="conf=<%= JSON.stringify(sails.config.custom) %>;">
   <h1>Monitors:</h1>
   <ul>
     <li ng-repeat="monitor in monitors">
-      Monitor {{ monitor.id }}: showing Idea {{ monitor.idea.id }} ({{ monitor.idea.idea_name}})
+      Monitor {{ monitor.id }}: showing Idea {{ monitor.idea.id }} ({{ monitor.idea.idea_name}}) <a ng-click="deleteMonitor(monitor.id)">delete</a>
     </li>
   </ul>
   <h3>Log:</h3>

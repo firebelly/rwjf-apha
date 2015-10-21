@@ -137,7 +137,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
       }
     })
     .catch(function onError(sailsResponse){
-      toastr.error(sailsResponse.status, 'Error');
+      toastr.error('Unable to save post, error #:' + sailsResponse.status, 'Error');
     })
     .finally(function eitherWay(){
       $scope.ideaForm.loading = false;

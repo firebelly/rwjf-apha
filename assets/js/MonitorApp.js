@@ -1,7 +1,7 @@
 var MonitorApp = angular.module('MonitorApp', ['toastr','ngSails']);
 
 // monitor HQ
-MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$http', 'toastr', '$window', '$interval', function($scope, $sails, $http, toastr, $window, $interval){
+MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$http', 'toastr', '$timeout', function($scope, $sails, $http, toastr, $timeout){
   $scope.monitors = [];
   $http.get('/monitor')
   .then(function onSuccess(sailsResponse){
@@ -11,6 +11,14 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$http', 'toas
     toastr.error(sailsResponse.status, 'Error');
   })
   $scope.log = "Listening...\n";
+
+  $scope.deleteMonitor = function(id) {
+    $http.post('/monitor/destroy/'+id)
+    .then(function onSuccess(sailsResponse){
+      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(id);
+      $scope.monitors.splice(idx, 1);
+    });
+  }
 
   var HQHandler = $sails.on('monitors', function (message) {
     var extra = '';
@@ -35,18 +43,18 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$http', 'toas
       extra = ' : Idea ' + message.monitor.idea.id;
       $scope.monitors[idx] = message.monitor;
     }
-    $scope.log += ('monitor '+message.verb+': '+message.monitor.id) + extra + "\n";
+    $scope.log = ('monitor '+message.verb+': '+message.monitor.id) + extra + "\n" + $scope.log.substr(0,10000);
   });
 
 }]);
 
 // single monitor
-MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr', '$window', '$interval', function($scope, $sails, $http, toastr, $window, $interval){
+MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr', '$timeout', '$interval', function($scope, $sails, $http, toastr, $timeout, $interval){
   $scope.has_been_liked = false;
 
   $scope.likeIdea = function() {
     // $http.post('/idea/like/'+$scope.monitor.idea.id);
-    $scope.monitor.idea.num_likes += 1;
+    $scope.monitor.idea.num_likes = $scope.monitor.idea.num_likes + 1;
     $scope.has_been_liked = true;
   }
 
@@ -58,7 +66,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
     if (message.verb === 'refresh' && message.monitor.id==$scope.monitor.id) {
       console.log('monitor refresh sent: '+message.monitor.id);
       $scope.has_been_liked = false;
-      setTimeout(function() {
+      $timeout(function() {
         $scope.monitor = message.monitor;
       }, 500);
     }

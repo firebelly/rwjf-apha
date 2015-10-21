@@ -1,0 +1,12 @@
+// Monitor HQ
+#monitor-hq {
+  margin: 20px;
+  a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+  }
+  textarea {
+    overflow: scroll;
+  }
+}

@@ -124,13 +124,15 @@ module.exports.sockets = {
   ***************************************************************************/
   afterDisconnect: function(session, socket, cb) {
     // console.log('Disconnected socket', session, socket);
-    if (session.monitor) {
+    if (session && session.monitor) {
       // clear out monitor
       Monitor.update({ id: session.monitor.id }, { idea: null }).exec(function deleteCB(err){
         console.log('Monitor ' + session.monitor.id + ' idea nullified');
       });
+
       // broadcast update
-      sails.sockets.blast('monitors', { verb: 'remove', monitor: session.monitor });
+      // sails.sockets.blast('monitors', { verb: 'remove', monitor: session.monitor });
+
       // Monitor.destroy({ id: session.monitor.id }).exec(function deleteCB(err){
       //   console.log('Monitor deleted');
       // });
