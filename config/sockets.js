@@ -126,9 +126,9 @@ module.exports.sockets = {
     // console.log('Disconnected socket', session, socket);
     if (session && session.monitor) {
       // clear out monitor
-      Monitor.update({ id: session.monitor.id }, { idea: null }).exec(function deleteCB(err){
-        console.log('Monitor ' + session.monitor.id + ' idea nullified');
-      });
+      // Monitor.update({ id: session.monitor.id }, { idea: null }).exec(function deleteCB(err){
+      //   console.log('Monitor ' + session.monitor.id + ' idea nullified');
+      // });
 
       // broadcast update
       // sails.sockets.blast('monitors', { verb: 'remove', monitor: session.monitor });

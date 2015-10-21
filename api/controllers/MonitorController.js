@@ -5,7 +5,7 @@
  */
 
 var refreshInterval = setInterval(function(){
-  Monitor.find().sort({ updatedAt: 'ASC' }).limit(1).exec(function foundMonitors(err, monitors) {
+  Monitor.find().where({paused: false}).sort({ updatedAt: 'ASC' }).limit(1).exec(function foundMonitors(err, monitors) {
     if (err) {
       sails.log.error(err);
     } else if (monitors.length === 0) {
@@ -34,7 +34,7 @@ var refreshInterval = setInterval(function(){
       // });
     }
   });
-}, 5000);
+}, 2500);
 
 module.exports = {
 
@@ -60,13 +60,35 @@ module.exports = {
       if (err) return next(err);
       if (!monitor) return next();
       monitor.refresh();
-      Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor (err, refreshed_monitor) {
+      Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor(err, refreshed_monitor) {
         if (req.wantsJSON) {
           return res.json(refreshed_monitor);
         } else {
           res.redirect('/monitor/'+monitor.id);
         }
       });
+    });
+  },
+  // like clicked on monitor, update idea num_likes and pause monitor
+  like: function(req, res, next) {
+    Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor(err, monitor) {
+      if (err) return next(err);
+      if (!monitor) return next();
+      monitor.idea.num_likes += 1;
+      monitor.idea.save();
+      monitor.paused = true;
+      monitor.save();
+      Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor(err, refreshed_monitor) {
+        if (err) return next(err);
+        return res.json(refreshed_monitor);
+      });
+    });
+  },
+  // refresh a monitor's idea (see models/Monitor.js)
+  unpause: function(req, res, next) {
+    Monitor.update({id: req.param('id')}, { paused: false }).exec(function updatedOK(err, refreshed_monitor) {
+      if (err) return next(err);
+      return res.json(refreshed_monitor);
     });
   },
   // fire up the monitorbot
@@ -82,7 +104,6 @@ module.exports = {
       if (!monitor) {
         // monitor deleted? just create a new one
         return res.redirect('/');
-        // return next();
       }
       req.session.monitor = monitor;
       sails.sockets.blast('monitors', { verb: 'add', monitor: monitor });

@@ -9,7 +9,7 @@ module.exports = {
   schema: false,
   
   attributes: {
-    is_paused: { type: 'boolean', defaultsTo: false },
+    paused: { type: 'boolean', defaultsTo: false },
     idea: { 
       model: 'idea',
     },
