@@ -39,7 +39,7 @@ module.exports = {
   index: function(req, res) {
     Idea.count().exec(function countCB(error, found) { 
       var numIdeas = found; 
-      Idea.find(function foundIdeas (err, ideas) {
+      Idea.find().sort({createdAt: 'DESC'}).exec(function foundIdeas (err, ideas) {
         if (err) {
           res.send(400);
         } else {
@@ -59,20 +59,21 @@ module.exports = {
     });
   },
 
-  // edit idea page, not currently used
-  edit: function(req, res, next) {
-    var numIdeas; 
-    Idea.count().exec(function countCB(error, found) { numIdeas = found; });
-    Idea.findOne(req.param('id'), function foundIdea(err, idea) {
-      if (err) return next(err);
-      if (!idea) return next();
-      res.view('idea/create', {
-        idea: idea,
-        formMode: 'edit',
-        numIdeas: numIdeas
-      });
-    });
-  },
+  // // edit idea page, not currently used
+  // edit: function(req, res, next) {
+  //   Idea.count().exec(function countCB(error, found) { 
+  //     var numIdeas = found; 
+  //     Idea.findOne(req.param('id'), function foundIdea(err, idea) {
+  //       if (err) return next(err);
+  //       if (!idea) return next();
+  //       res.view('idea/create', {
+  //         idea: idea,
+  //         formMode: 'edit',
+  //         numIdeas: numIdeas
+  //       });
+  //     });
+  //   });
+  // },
 
   // new idea page
   new: function(req, res) {

@@ -25,21 +25,11 @@ module.exports = {
     email: { type: 'string' },
     twitter: { type: 'string' },
     published: { type: 'boolean' },
-    
-    num_likes: { type: 'integer' },
-    last_monitor_id: { type: 'string'},
+    num_likes: { type: 'integer', defaultsTo: 0 },
     num_views: { type: 'integer', defaultsTo: 0 },
-
-    // full_name: function() {
-    //   return [this.first_name, this.middle, this.last_name].join(' ');
-    // },
-    // photo_url: function() {
-    //   return 'http://' + conf.photos_base_url + '/' + idea.id + '/' + idea.photo;
-    // }
     // ,monitor: {
     //   model: 'monitor'
     // }
-
   },
 
   // move queue directory of photos to photos/idea.id, recreate /queue for next idea
