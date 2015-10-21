@@ -54,6 +54,14 @@ module.exports = {
     });
     cb();
   },
+  afterDestroy: function(destroyedRecords, cb) {
+    _.each(destroyedRecords, function(record) {
+      fs.remove(conf.photos_dir + '/' + record.id, function (err) {
+        if (err) cb(err);
+      });
+    });
+    cb();
+  },
   afterValidate: function(values, cb) {
     // console.log('afterValidate', values);
     if (values.first_name) {
