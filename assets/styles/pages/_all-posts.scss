@@ -4,8 +4,12 @@
 }
 
 .posts-list {
-  margin: 0;
   padding: 0;
+  margin: 36px 0 0;
+
+  .form-idea {
+    margin-top: 0;
+  }
 
   .post-list-labels {
     .actions {
