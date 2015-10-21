@@ -8,10 +8,8 @@ var refreshInterval = setInterval(function(){
   Monitor.find().sort({ updatedAt: 'ASC' }).limit(1).exec(function foundMonitors(err, monitors) {
     if (err) {
       sails.log.error(err);
-      next(err);
     } else if (monitors.length === 0) {
       sails.log.error('No monitors found');
-      next();
     } else {
       monitor = monitors[0];
       monitor.refresh();
@@ -21,7 +19,7 @@ var refreshInterval = setInterval(function(){
           sails.sockets.blast('monitors', { verb: 'refresh', monitor: refreshed_monitor });
         });
       }, 150);
-      // cleanup      
+      // cleanup
       // var moldyMonitorDate = new Date().getTime() - 60000;
       // Monitor.find().where({ updatedAt: { '<': new Date(moldyMonitorDate) } }).populate('idea').exec(function foundMonitors(err, monitors) {
       //   _.each(monitors, function(monitor) {
@@ -36,7 +34,7 @@ var refreshInterval = setInterval(function(){
       // });
     }
   });
-}, 1000);
+}, 5000);
 
 module.exports = {
 
