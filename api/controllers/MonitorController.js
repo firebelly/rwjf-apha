@@ -84,7 +84,7 @@ module.exports = {
       });
     });
   },
-  // refresh a monitor's idea (see models/Monitor.js)
+  // unpause monitor so it enters randomized rotation again
   unpause: function(req, res, next) {
     Monitor.update({id: req.param('id')}, { paused: false }).exec(function updatedOK(err, refreshed_monitor) {
       if (err) return next(err);
@@ -107,8 +107,6 @@ module.exports = {
       }
       req.session.monitor = monitor;
       sails.sockets.blast('monitors', { verb: 'add', monitor: monitor });
-      console.log('monitor added');
-      // console.log(req.session);
       res.view('monitor/show', {
         monitor: monitor,
         layout: false
