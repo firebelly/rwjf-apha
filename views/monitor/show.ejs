@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
   <title>RWJF Monitor</title>
@@ -35,7 +35,7 @@
               </header>
                 
               <blockquote class="idea">
-                <p>{{ monitor.idea.idea_content }}</p>
+                <p class="">{{ monitor.idea.idea_content }}</p>
               </blockquote>
               
               <footer class="post-meta">
@@ -65,9 +65,9 @@
           </div>
           <div class="liked-view" ng-class="{'active': has_been_liked }">
             <div class="liked-view-wrap">              
-              <svg class="icon icon-heart" role="img"><use xlink:href="#icon-heart"></use></svg>
               <h3>Thank you!</h3>
               <p>Visit our booth to learn how you can help build a Culture of Health and add your voice to the conversation.</p>
+              <svg class="icon icon-heart" role="img"><use xlink:href="#icon-heart"></use></svg>
               <div class="likes">
                 <p ng-show="monitor.idea.num_likes>0"><span class="like-count">{{ monitor.idea.num_likes }}</span> <span><svg class="icon icon-heart" role="img"><use xlink:href="#icon-heart"></use></svg> s</span></p>
               </div>
@@ -88,6 +88,7 @@
   <script src="/js/dependencies/angular.js"></script>
   <script src="/js/dependencies/angular-sails.js"></script>
   <script src="/js/dependencies/angular-toastr.tpls.js"></script>
+  <script src="/js/dependencies/hyphenator.min.js"></script>
   <script src="/js/dependencies/jquery-1.11.1.js"></script>
   <script src="/js/dependencies/modernizr.custom.js"></script>
   <script src="/js/IdeaApp.js"></script>

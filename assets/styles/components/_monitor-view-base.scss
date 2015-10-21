@@ -239,14 +239,14 @@
         width: 100%;
         display: flex;
         color: $purple;
-        margin-left: 26px;
+        margin-left: 30px;
         text-align: center;
         background: $white;
         position: absolute;
         align-items: flex-end;
         transform: translateX(100%);
         padding: 100px 100px 316px 100px;
-        transition: transform 1s cubic-bezier(0.78,-0.09, 0.11, 1.03), margin 1s ease-out;
+        transition: transform 1s cubic-bezier(0.78,-0.09, 0.11, 1.03), margin 1s cubic-bezier(0.78,-0.09, 0.11, 1.03);
         &.active {
           margin-left: 0;
           transform: translateX(0);
@@ -254,7 +254,7 @@
         // cutout
         &::before {
           bottom: 0;
-          left: -26px;
+          left: -30px;
           content: '';
           height: 35%;
           position: absolute;
@@ -263,7 +263,7 @@
         }
         &::after {
           top: 0;
-          left: -26px;
+          left: -30px;
           content: '';
           height: 65%;
           position: absolute;
