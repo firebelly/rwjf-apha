@@ -1,5 +1,63 @@
 // Mixins
 
+// Color scheme for monitor view
+@mixin transition($property) {
+  transition: $property 1s ease-out;
+}
+@mixin colorScheme($color) {
+  background: $color;
+  @include transition(background);
+  .post {
+    .post-content {
+      background: $color;
+      @include transition(background);
+    }
+    .post-image {
+      &::before {
+        background-image: linear-gradient(90deg, rgba(255,255,255,0) 5%, rgba($color,1) 45%);
+        @include transition(background-image);
+      }
+      &::after {
+        background: $color;
+        @include transition(background);
+      }
+    }
+    .post-aside {
+      &::before {
+        border-right: 30px solid $color;
+        @include transition(border-color);
+      }
+      &::after {
+        border-right: 30px solid $color;
+        @include transition(border-color);
+      }
+      .liked-view {
+        color: $color;
+        .liked-view-wrap {
+          > .icon-heart {
+            fill: $color;
+            @include transition(fill);
+          }
+        }
+        .close-like {
+          border: 5px solid $color;
+          @include transition(border-color);
+          .icon {
+            fill: $color;
+            @include transition(fill);
+          }
+        }
+        .likes {
+          .icon-heart {
+            fill: $color;
+            @include transition(fill);
+          }
+        }
+      }
+    }
+  }
+}
+
 // Support for styling input placeholder text
 @mixin placeholder {
   &.placeholder {

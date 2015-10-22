@@ -1,4 +1,12 @@
 var MonitorApp = angular.module('MonitorApp', ['toastr','ngSails']);
+// establish a color on page load
+colorPicker();
+
+// pick a random color class for the body
+function colorPicker() {
+  colorNumber = Math.floor(Math.random() * 6) + 1;
+  $('body.monitor-view').attr('data-color', colorNumber);
+}
 
 // single monitor
 MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr', '$timeout', '$interval', function($scope, $sails, $http, toastr, $timeout, $interval){
@@ -38,6 +46,8 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
       $timeout(function() {
         $scope.monitor = message.monitor;
       }, 500);
+
+      colorPicker();
     }
   });
 

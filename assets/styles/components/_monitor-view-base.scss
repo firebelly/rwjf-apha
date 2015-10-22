@@ -1,8 +1,16 @@
 // Monitor View Base Styles
+
+// Custom color based on body data-color attribute
+$colors: $purple, $turquoise, $gold, $orange, $green, $blue;
+@for $i from 1 through 6 {
+  .monitor-view[data-color='#{$i}'] { 
+    @include colorScheme(nth($colors, $i)); 
+  }
+}
+
 .monitor-view {
   height: 100%;
   color: $white;
-  background: $purple;
 
   h1 {
     margin: 0;
@@ -31,7 +39,6 @@
     height: 100%;
     .post-content {
       position: relative;
-      background: $purple;
       flex-basis: 14*$column;
       padding: 100px 100px 100px ($column*5);
       &::before {
@@ -123,7 +130,6 @@
         z-index: 1;
         content: '';
         position: absolute;
-        background-image: linear-gradient(90deg, rgba(255,255,255,0) 5%, rgba($purple,1) 45%);
       }
       &::after {
         top: 0;
@@ -133,7 +139,6 @@
         z-index: 2;
         content: '';
         position: absolute;
-        background: $purple;
         mix-blend-mode: color;
       }
 
@@ -162,7 +167,6 @@
         height: 35%;
         position: absolute;
         margin-bottom: -1px;
-        border-right: 30px solid $purple;
         border-top: 30px solid transparent;
       }
       &::after {
@@ -172,7 +176,6 @@
         height: 65%;
         margin-top: -1px;
         position: absolute;
-        border-right: 30px solid $purple;
         border-bottom: 30px solid transparent;
       }
 
@@ -238,7 +241,6 @@
         z-index: 1;
         width: 100%;
         display: flex;
-        color: $purple;
         margin-left: 30px;
         text-align: center;
         background: $white;
@@ -276,7 +278,6 @@
           > .icon-heart {
             width: 60px;
             height: 54px;
-            fill: $purple;
             margin: 0 auto 30px;
             display: inline-block;
           }
@@ -301,7 +302,6 @@
           display: flex;
           background: none;
           transform: rotate(45deg);
-          border: 5px solid $purple;
           margin: $padding auto 16px;
           &:focus {
             outline: none;
@@ -310,7 +310,6 @@
             width: 47px;
             height: 27px;
             margin: auto;
-            fill: $purple;
             transform: rotate(-45deg);
           }
         }
@@ -321,7 +320,6 @@
             font-weight: 200;
           }
           .icon-heart {
-            fill: $purple;
           }
         }
       }
