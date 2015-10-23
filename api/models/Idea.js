@@ -60,7 +60,7 @@ module.exports = {
     if (values.photo) {
       values.photo_url = conf.photos_base_url + '/' + values.id + '/' + values.photo;
     } else if (values.no_photo) {
-      values.photo_url = '';
+      values.photo_url = '/images/no-photo.png';
     }
     cb();
   }

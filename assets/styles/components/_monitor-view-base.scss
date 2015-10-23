@@ -11,13 +11,25 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
 .monitor-view {
   height: 100%;
   color: $white;
+  @include transition(background);
 
   h1 {
     margin: 0;
     font-size: 36px;
     line-height: 1em;
     font-weight: bold;
+    position: relative;
     text-transform: uppercase;
+    &::before {
+      top: 11px;
+      content: '';
+      width: 17px;
+      left: -60px;
+      height: 17px;
+      position: absolute;
+      transform: rotate(45deg);
+      border: 5px solid $white;
+    }
   }
 
   main {
@@ -40,6 +52,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
     .post-content {
       position: relative;
       flex-basis: 14*$column;
+      @include transition(background);
       padding: 100px 100px 100px ($column*5);
       &::before {
         right: 0;
@@ -130,6 +143,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         z-index: 1;
         content: '';
         position: absolute;
+        transition: opacity 1s ease-out, background 1s ease-out;
       }
       &::after {
         top: 0;
@@ -140,6 +154,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         content: '';
         position: absolute;
         mix-blend-mode: color;
+        @include transition(background);
       }
 
       img {
@@ -167,6 +182,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         height: 35%;
         position: absolute;
         margin-bottom: -1px;
+        @include transition(border-color);
         border-top: 30px solid transparent;
       }
       &::after {
@@ -176,6 +192,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         height: 65%;
         margin-top: -1px;
         position: absolute;
+        @include transition(border-color);
         border-bottom: 30px solid transparent;
       }
 
@@ -280,6 +297,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 54px;
             margin: 0 auto 30px;
             display: inline-block;
+            @include transition(fill);
           }
         }
 
@@ -303,6 +321,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           background: none;
           transform: rotate(45deg);
           margin: $padding auto 16px;
+          @include transition(border-color);
           &:focus {
             outline: none;
           }
@@ -311,6 +330,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 27px;
             margin: auto;
             transform: rotate(-45deg);
+            @include transition(fill);
           }
         }
 
@@ -320,7 +340,29 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             font-weight: 200;
           }
           .icon-heart {
+            @include transition(fill);
           }
+        }
+      }
+    }
+  }
+
+
+  // When no photo is selected
+  .no-photo {
+    .post {
+      .post-image {
+        background: none;
+        &::before {
+          opacity: 0;
+        }
+        img {
+          left: 0;
+          top: 50%;
+          height: 85%;
+          position: absolute;
+          mix-blend-mode: normal;
+          transform: translate(0, -50%); 
         }
       }
     }
