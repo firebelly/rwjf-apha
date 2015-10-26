@@ -21,6 +21,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
   }
 
   $scope.closeLike = function() {
+    if (closeLikeTimer) $timeout.cancel(closeLikeTimer);
     // unpause the monitor
     $http.post('/monitor/unpause/'+$scope.monitor.id)
     .then(function onSuccess(sailsResponse){
@@ -31,14 +32,20 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
     });
   }
 
+  // watch for monitor updates
   var refreshHandler = $sails.on('monitors', function (message) {
     if (message.verb === 'refresh' && message.monitor.id==$scope.monitor.id) {
-      console.log('monitor refresh sent: '+message.monitor.id);
+      // console.log('monitor refresh sent: '+message.monitor.id);
       $scope.has_been_liked = false;
       $timeout(function() {
         $scope.monitor = message.monitor;
       }, 500);
     }
+  });
+
+  // stop watching on destroy
+  $scope.$on('$destroy', function() {
+    $sails.off('monitors', refreshHandler);
   });
 
 }]);
