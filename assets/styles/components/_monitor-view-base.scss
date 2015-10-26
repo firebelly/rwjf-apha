@@ -2,7 +2,7 @@
 
 // Custom color based on body data-color attribute
 $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
-@for $i from 1 through 7 {
+@for $i from 1 through 6 {
   .monitor-view[data-color='#{$i}'] { 
     @include colorScheme(nth($colors, $i)); 
   }
