@@ -1,16 +1,8 @@
 var MonitorApp = angular.module('MonitorApp', ['toastr','ngSails']);
-// establish a color on page load
-colorPicker();
-
-// pick a random color class for the body
-function colorPicker() {
-  colorNumber = Math.floor(Math.random() * 6) + 1;
-  $('body.monitor-view').attr('data-color', colorNumber);
-}
-
 // single monitor
 MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr', '$timeout', '$interval', function($scope, $sails, $http, toastr, $timeout, $interval){
   $scope.has_been_liked = false;
+  $scope.transitioning = true;
   var closeLikeTimer;
 
   $scope.likeIdea = function() {
@@ -45,11 +37,14 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
     if (message.verb === 'refresh' && message.monitor.id==$scope.monitor.id) {
       // console.log('monitor refresh sent: '+message.monitor.id);
       $scope.has_been_liked = false;
+      $scope.transitioning = true;
+
       $timeout(function() {
         $scope.monitor = message.monitor;
+        $scope.transitioning = false;
+        // refresh random monitor color
+        $scope.monitor.random_color = Math.floor(Math.random() * 6) + 1;
       }, 500);
-
-      colorPicker();
     }
   });
 

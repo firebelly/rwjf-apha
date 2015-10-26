@@ -2,9 +2,16 @@
 
 // Custom color based on body data-color attribute
 $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
-@for $i from 1 through 6 {
+@for $i from 1 through 7 {
   .monitor-view[data-color='#{$i}'] { 
     @include colorScheme(nth($colors, $i)); 
+  }
+}
+
+// monitor transition state
+.monitor-view.transitioning {
+  .post-image img {
+    opacity: 0;
   }
 }
 
@@ -89,7 +96,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         }
       }
       .blur {
-        filter: blur(0);
+        -webkit-filter: blur(0);
         transition: -webkit-filter 1s ease-out;
       }
 
@@ -163,8 +170,9 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         max-width: none;
         vertical-align: top;
         mix-blend-mode: hard-light;
+        transition: opacity 1s 1s;
         transform: translateX(-48%);
-        filter: grayscale(100%) brightness(80%);
+        -webkit-filter: grayscale(100%) brightness(80%);
       }
     }
 
