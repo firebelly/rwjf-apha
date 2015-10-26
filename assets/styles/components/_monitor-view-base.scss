@@ -1,15 +1,35 @@
 // Monitor View Base Styles
+
+// Custom color based on body data-color attribute
+$colors: $purple, $turquoise, $gold, $orange, $green, $blue;
+@for $i from 1 through 6 {
+  .monitor-view[data-color='#{$i}'] { 
+    @include colorScheme(nth($colors, $i)); 
+  }
+}
+
 .monitor-view {
   height: 100%;
   color: $white;
-  background: $purple;
+  @include transition(background);
 
   h1 {
     margin: 0;
     font-size: 36px;
     line-height: 1em;
     font-weight: bold;
+    position: relative;
     text-transform: uppercase;
+    &::before {
+      top: 11px;
+      content: '';
+      width: 17px;
+      left: -60px;
+      height: 17px;
+      position: absolute;
+      transform: rotate(45deg);
+      border: 5px solid $white;
+    }
   }
 
   main {
@@ -31,8 +51,8 @@
     height: 100%;
     .post-content {
       position: relative;
-      background: $purple;
       flex-basis: 14*$column;
+      @include transition(background);
       padding: 100px 100px 100px ($column*5);
       &::before {
         right: 0;
@@ -123,7 +143,7 @@
         z-index: 1;
         content: '';
         position: absolute;
-        background-image: linear-gradient(90deg, rgba(255,255,255,0) 5%, rgba($purple,1) 45%);
+        transition: opacity 1s ease-out, background 1s ease-out;
       }
       &::after {
         top: 0;
@@ -133,8 +153,8 @@
         z-index: 2;
         content: '';
         position: absolute;
-        background: $purple;
         mix-blend-mode: color;
+        @include transition(background);
       }
 
       img {
@@ -162,7 +182,7 @@
         height: 35%;
         position: absolute;
         margin-bottom: -1px;
-        border-right: 30px solid $purple;
+        @include transition(border-color);
         border-top: 30px solid transparent;
       }
       &::after {
@@ -172,7 +192,7 @@
         height: 65%;
         margin-top: -1px;
         position: absolute;
-        border-right: 30px solid $purple;
+        @include transition(border-color);
         border-bottom: 30px solid transparent;
       }
 
@@ -238,15 +258,14 @@
         z-index: 1;
         width: 100%;
         display: flex;
-        color: $purple;
-        margin-left: 26px;
+        margin-left: 30px;
         text-align: center;
         background: $white;
         position: absolute;
         align-items: flex-end;
         transform: translateX(100%);
         padding: 100px 100px 316px 100px;
-        transition: transform 1s cubic-bezier(0.78,-0.09, 0.11, 1.03), margin 1s ease-out;
+        transition: transform 1s cubic-bezier(0.78,-0.09, 0.11, 1.03), margin 1s cubic-bezier(0.78,-0.09, 0.11, 1.03);
         &.active {
           margin-left: 0;
           transform: translateX(0);
@@ -254,7 +273,7 @@
         // cutout
         &::before {
           bottom: 0;
-          left: -26px;
+          left: -30px;
           content: '';
           height: 35%;
           position: absolute;
@@ -263,7 +282,7 @@
         }
         &::after {
           top: 0;
-          left: -26px;
+          left: -30px;
           content: '';
           height: 65%;
           position: absolute;
@@ -276,9 +295,9 @@
           > .icon-heart {
             width: 60px;
             height: 54px;
-            fill: $purple;
             margin: 0 auto 30px;
             display: inline-block;
+            @include transition(fill);
           }
         }
 
@@ -301,8 +320,8 @@
           display: flex;
           background: none;
           transform: rotate(45deg);
-          border: 5px solid $purple;
           margin: $padding auto 16px;
+          @include transition(border-color);
           &:focus {
             outline: none;
           }
@@ -310,8 +329,8 @@
             width: 47px;
             height: 27px;
             margin: auto;
-            fill: $purple;
             transform: rotate(-45deg);
+            @include transition(fill);
           }
         }
 
@@ -321,8 +340,29 @@
             font-weight: 200;
           }
           .icon-heart {
-            fill: $purple;
+            @include transition(fill);
           }
+        }
+      }
+    }
+  }
+
+
+  // When no photo is selected
+  .no-photo {
+    .post {
+      .post-image {
+        background: none;
+        &::before {
+          opacity: 0;
+        }
+        img {
+          left: 0;
+          top: 50%;
+          height: 85%;
+          position: absolute;
+          mix-blend-mode: normal;
+          transform: translate(0, -50%); 
         }
       }
     }
