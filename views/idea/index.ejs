@@ -1,10 +1,10 @@
 <div ng-controller="IdeaSearchController as search">
 <div class="page-title wrap grid">
   <h1 class="flex-item one-half">All Posts</h1>
-  <form action="" id="post-search" class="post-search flex-item one-half">
-    <input class="search-field" type="text" placeholder="Search by author or idea name" required ng-model="search.term">
-    <button class="search-button" type="submit" data-tooltip="Search"><span class="visually-hidden">Search</span><svg class="icon icon-search" role="img"><use xlink:href="#icon-search"></use></svg><svg class="icon icon-x" role="img"><use xlink:href="#icon-x"></use></svg></button>
-  </form>
+  <div id="post-search" class="post-search flex-item one-half">
+    <input class="search-field" type="text" placeholder="Search by author or idea name" ng-model="search.term">
+    <button class="search-button" ng-class="{'close-button' : search.term}" ng-click="clearSearch()" data-tooltip="{{ search.term === '' ? 'Search' : 'Clear' }}"><span class="visually-hidden">Search</span><svg class="icon icon-search" role="img"><use xlink:href="#icon-search"></use></svg><svg class="icon icon-x" role="img"><use xlink:href="#icon-x"></use></svg></button>
+  </div>
 </div>
 
 <ul class="posts-list">
@@ -16,7 +16,7 @@
     </div>
   </div>
   <% _.each(ideas, function(idea) { %>
-    <li class="post" ng-controller="IdeaListController" ng-class="{'active': isEditing}" ng-hide="!idea.idea_name.toLowerCase().match(search.term) && !idea.full_name.toLowerCase().match(search.term)">
+    <li class="post" ng-controller="IdeaListController" ng-class="{'active': isEditing}" ng-hide="!idea.idea_name.toLowerCase().match(search.term) && !idea.full_name.toLowerCase().match(search.term) && !idea.organization.toLowerCase().match(search.term)">
       <article>
         <div class="wrap">
           <div class="post-info grid">

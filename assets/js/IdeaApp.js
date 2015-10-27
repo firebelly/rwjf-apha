@@ -8,6 +8,10 @@ var IdeaApp = angular.module('IdeaApp', ['toastr', 'ngSails']);
 
 // Controller for Idea Search
 IdeaApp.controller('IdeaSearchController', ['$scope', function($scope){
+  $scope.search.term = '';
+  $scope.clearSearch = function() {
+    $scope.search.term = '';
+  }
 }]);
 
 // Controller for Idea List
