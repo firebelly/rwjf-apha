@@ -50,7 +50,7 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 5000);
+}, 6000);
 
 module.exports = {
 

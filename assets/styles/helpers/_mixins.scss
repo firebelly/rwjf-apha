@@ -2,7 +2,7 @@
 
 // Color scheme for monitor view
 @mixin transition($property) {
-  transition: $property 1s ease-out;
+  transition: $property 1.5s ease-out;
 }
 
 @mixin colorScheme($color) {
@@ -27,16 +27,17 @@
       &::after {
         border-right: 30px solid $color;
       }
+      .target-areas {
+        .area-number {
+          .number {
+            color: $color;
+          }
+        }
+      }
       .liked-view {
         color: $color;
         .liked-view-wrap {
           > .icon-heart {
-            fill: $color;
-          }
-        }
-        .close-like {
-          border: 5px solid $color;
-          .icon {
             fill: $color;
           }
         }

@@ -10,7 +10,10 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
 
 // monitor transition state
 .monitor-view.transitioning {
-  .post-image img {
+  .site-main {
+    opacity: 0;
+  }
+  .post .post-image img {
     opacity: 0;
   }
 }
@@ -39,9 +42,12 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
     }
   }
 
-  main {
+  .site-main {
+    opacity: 1;
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
+    transition-delay: 1s;
+    transition: opacity 1.5s ease-out;
   }
 
   .wrap {
@@ -60,7 +66,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       position: relative;
       flex-basis: 14*$column;
       @include transition(background);
-      padding: 100px 100px 100px ($column*5);
+      padding: 100px 130px 100px ($column*5);
       &::before {
         right: 0;
         bottom: 0;
@@ -116,12 +122,10 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         font-kerning: normal;
         p {
           margin: 0;
-          hyphens: auto;
-          font-size:  96px;
+          font-size:  88px;
           font-weight: bold;
           word-spacing: -.06em;
           line-height: .9375em;
-          word-break: break-all;
         }
       }
       .post-meta {
@@ -141,7 +145,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       z-index: 0;
       background: white;
       position: absolute;
-      // mix-blend-mode: multiply;
       &::before {
         top: 0;
         left: 0;
@@ -165,13 +168,14 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       }
 
       img {
+        opacity: 1;
         width: auto;
         height: 100%;
         max-width: none;
         vertical-align: top;
         mix-blend-mode: hard-light;
-        transition: opacity 1s 1s;
         transform: translateX(-48%);
+        transition: opacity 3s ease-out;
         -webkit-filter: grayscale(100%) brightness(80%);
       }
     }
@@ -259,6 +263,59 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         }
       }
 
+      .target-areas {
+        margin: 0;
+        padding: 0;
+        top: -40px;
+        flex-wrap: wrap;
+        position: relative;
+        .target-area {
+          opacity: .35;
+          list-style: none;
+          text-align: center;
+          margin-bottom: 20px;
+          @include transition(opacity);
+          &.active {
+            opacity: 1;
+          }
+          h4 {
+            font-size: 15px;
+            font-weight: 200;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            &::after {
+              left: 0;
+              width: 100%;
+              content: '';
+              height: 2px;
+              bottom: -4px;
+              position: absolute;
+              background: rgba($white,.5);
+            }
+          }
+        }
+        .area-number {
+          width: 42px;
+          height: 42px;
+          margin: auto;
+          display: flex;
+          list-style: none;
+          background: none;
+          background: $white;
+          transform: rotate(45deg);
+          &:focus {
+            outline: none;
+          }
+          .number {
+            margin: auto;
+            font-size: 18px;
+            display: inline-block;
+            transform: rotate(-45deg);
+          }
+        }
+      }
+
       .liked-view {
         top: 0;
         left: 0;
@@ -305,7 +362,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 54px;
             margin: 0 auto 30px;
             display: inline-block;
-            @include transition(fill);
           }
         }
 
@@ -329,7 +385,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           background: none;
           transform: rotate(45deg);
           margin: $padding auto 16px;
-          @include transition(border-color);
           &:focus {
             outline: none;
           }
@@ -338,7 +393,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 27px;
             margin: auto;
             transform: rotate(-45deg);
-            @include transition(fill);
           }
         }
 
@@ -346,9 +400,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           p {
             font-size: 36px;
             font-weight: 200;
-          }
-          .icon-heart {
-            @include transition(fill);
           }
         }
       }

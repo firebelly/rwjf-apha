@@ -48,7 +48,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
     if (message.verb === 'restart') {
       setTimeout(function() {
         $window.location.href = '/';
-      }, 500);
+      }, 2000);
     } else if (message.verb === 'refresh' && message.data.id==$scope.monitor.id) {
       // console.log('data refresh sent: ' + message.data.id);
       $scope.hasBeenLiked = false;
@@ -57,6 +57,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
       // ping HQ that this monitor is still alive
       $sails.post('/monitor/ping/' + $scope.monitor.id);
 
+
       $timeout(function() {
         $scope.monitor = message.data;
         $scope.transitioning = false;
@@ -64,7 +65,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
         // refresh random monitor color
         if (!colorSchemeArr.length) colorSchemeArr = shuffleArray([1,2,3,4,5,6]);
         $scope.colorSchemeIndex = colorSchemeArr.pop();
-      }, 500);
+      }, 2500);
     }
   });
 

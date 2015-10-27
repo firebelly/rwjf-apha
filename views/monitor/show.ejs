@@ -52,8 +52,23 @@
 
         <aside class="post-aside flex-item">
           <div class="like-this-view">
-            <ul class="target-areas">
-              
+            <ul class="target-areas grid">
+              <li class="target-area flex-item one-half" ng-class="{'active': monitor.idea.action_areas.indexOf('Shared values') > -1}">
+                <div class="area-number"><span class="number">1</span></div>
+                <h4>Shared Value</h4>
+              </li>
+              <li class="target-area flex-item one-half" ng-class="{'active': monitor.idea.action_areas.indexOf('Collaboration') > -1}">
+                <div class="area-number"><span class="number">2</span></div>
+                <h4>Collaboration</h4>
+              </li>
+              <li class="target-area flex-item one-half" ng-class="{'active': monitor.idea.action_areas.indexOf('Communities') > -1}">
+                <div class="area-number"><span class="number">3</span></div>
+                <h4>Communities</h4>
+              </li>
+              <li class="target-area flex-item one-half" ng-class="{'active': monitor.idea.action_areas.indexOf('Health care') > -1}">
+                <div class="area-number"><span class="number">4</span></div>
+                <h4>Health care</h4>
+              </li>
             </ul>
             <div class="like-this-action">
               <p>I like<br> this!</p>
@@ -88,7 +103,6 @@
   <script src="/js/dependencies/angular.js"></script>
   <script src="/js/dependencies/angular-sails.js"></script>
   <script src="/js/dependencies/angular-toastr.tpls.js"></script>
-  <script src="/js/dependencies/hyphenator.min.js"></script>
   <script src="/js/dependencies/modernizr.custom.js"></script>
   <script src="/js/IdeaApp.js"></script>
   <script src="/js/MonitorApp.js"></script>
