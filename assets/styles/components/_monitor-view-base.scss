@@ -45,7 +45,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
   .site-main {
     opacity: 1;
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     transition-delay: 1s;
     transition: opacity 1.5s ease-out;
   }
@@ -122,12 +122,10 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         font-kerning: normal;
         p {
           margin: 0;
-          hyphens: auto;
-          font-size:  96px;
+          font-size:  88px;
           font-weight: bold;
           word-spacing: -.06em;
           line-height: .9375em;
-          word-break: break-all;
         }
       }
       .post-meta {
@@ -147,7 +145,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       z-index: 0;
       background: white;
       position: absolute;
-      // mix-blend-mode: multiply;
       &::before {
         top: 0;
         left: 0;
