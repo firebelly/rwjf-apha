@@ -34,10 +34,10 @@ module.exports = {
   afterCreate: function(idea, cb) {
     fs.move(conf.photosDir + '/queue', conf.photosDir + '/' + idea.id, function (err) {
       if (err) cb(err);
-      console.log('Moved queue to ' + conf.photosDir + '/' + idea.id + ' OK!');
+      sails.log.verbose('Moved queue to ' + conf.photosDir + '/' + idea.id + ' OK!');
       fs.mkdir(conf.photosDir + '/queue', function (err) {
         if (err) cb(err);
-        console.log('Made dir '+conf.photosDir + '/queue' + ' OK!');
+        sails.log.verbose('Made dir '+conf.photosDir + '/queue' + ' OK!');
       });
     });
     cb();
@@ -51,9 +51,12 @@ module.exports = {
     cb();
   },
   afterValidate: function(values, cb) {
-    // console.log('afterValidate', values);
     if (values.first_name) {
       values.full_name = [values.first_name, values.middle, values.last_name].join(' ');
+    }
+    if (values.twitter) {
+      // Remove @ from twitter handle if it's included (we'll add it in the view)
+      values.twitter = values.twitter.replace('@','');
     }
     if (values.photo) {
       values.photo_url = conf.photosBaseURL + '/' + values.id + '/' + values.photo;

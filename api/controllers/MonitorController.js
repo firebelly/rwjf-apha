@@ -1,15 +1,16 @@
 /**
- * MonitorController
+ * MonitorController.js
  *
  * @description :: Server-side logic for managing monitors
  */
 
+// Monitor refresh interval runs periodically to update 
 var refreshInterval = setInterval(function(){
   Monitor.find().where({paused: false}).populate('idea').sort({ updatedAt: 'ASC' }).limit(1).exec(function foundMonitors(err, monitors) {
     if (err) {
       sails.log.error(err);
     } else if (monitors.length === 0) {
-      sails.log.error('No monitors found');
+      sails.log.warn('No monitors found');
     } else {
       var monitor = monitors[0];
       var oldIdea = monitor.idea;
@@ -31,7 +32,7 @@ var refreshInterval = setInterval(function(){
     }
   });
 
-  // cleanup old monitors
+  // Clean up old monitors that haven't pinged in a minute
   var moldyMonitorDate = new Date().getTime() - 60000;
   Monitor.find().where({ ping: { '<': moldyMonitorDate } }).populate('idea').exec(function foundMonitors(err, monitors) {
     _.each(monitors, function(monitor) {
@@ -49,11 +50,11 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 2500);
+}, 5000);
 
 module.exports = {
 
-  // new monitor page
+  // New monitor page
   new: function(req, res) {
     Monitor.create({ ping: new Date().getTime() })
     .exec(function(err, monitor) {
@@ -68,7 +69,7 @@ module.exports = {
     });
   },
 
-  // like clicked on monitor, update idea num_likes and pause monitor
+  // Like clicked on monitor, update idea num_likes and pause monitor
   like: function(req, res, next) {
     Monitor.findOne(req.param('id')).populate('idea').exec(function foundMonitor(err, monitor) {
       if (err) return next(err);
@@ -81,7 +82,7 @@ module.exports = {
     });
   },
 
-  // monitors send ping when they get a refresh signal so we know their alive (cleared out with refresh interval above)
+  // Monitors send ping when they get a refresh signal so we know they're alive (dead monitors cleared out with refresh interval above)
   ping: function(req, res, next) {
     Monitor.update({id: req.param('id')}, { ping: new Date().getTime() }).exec(function(err, refreshedMonitor) {
       if (err) return next(err);
@@ -89,7 +90,7 @@ module.exports = {
     });
   },
 
-  // unpause monitor so it enters randomized rotation again
+  // Unpause monitor so it enters randomized rotation again
   unpause: function(req, res, next) {
     Monitor.update({id: req.param('id')}, { paused: false }).exec(function updatedOK(err, refreshedMonitor) {
       if (err) return next(err);
@@ -97,13 +98,8 @@ module.exports = {
     });
   },
 
-  // fire up the monitorbot
+  // Monitorbot HQ
   hq: function(req, res, next) {
-    var socketId = sails.sockets.id(req);
-    var session = req.session;
-    // Get updates about monitors being created
-    Monitor.watch(req);
-    // Get updates about monitors being created
     res.view('monitor/hq', {
       layout: false
     });

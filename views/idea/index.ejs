@@ -21,7 +21,7 @@
         <div class="wrap">
           <div class="post-info grid">
             <div class="post-author flex-item one-third">
-              <h2>{{ idea.full_name }}</h2>
+              <h2>{{ idea.full_name || idea.organization }}</h2>
             </div>
             <div class="post-name flex-item one-third">
               <h2>{{ idea.idea_name }}</h2>

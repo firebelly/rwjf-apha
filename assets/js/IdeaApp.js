@@ -1,7 +1,13 @@
+/**
+ * IdeaApp.js
+ *
+ * @description :: Client-side logic for managing ideas
+ */
+
 var IdeaApp = angular.module('IdeaApp', ['toastr', 'ngSails']);
 
 // Controller for Idea Search
-IdeaApp.controller('IdeaSearchController', ['$scope', '$sails', '$http', 'toastr', '$window', function($scope, $sails, $http, toastr, $window){
+IdeaApp.controller('IdeaSearchController', ['$scope', function($scope){
 }]);
 
 // Controller for Idea List
@@ -25,7 +31,7 @@ IdeaApp.controller('IdeaListController', ['$scope', '$sails', '$http', 'toastr',
 // Controller for Idea Forms
 IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr', '$window', function($scope, $sails, $http, toastr, $window){
 
-  // update or create idea?
+  // Update or create idea?
   $scope.formMode = $window.location.href.match(/new/) ? 'create' : 'update';
 
   // Checkbox lists
@@ -41,27 +47,28 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     'Reduced health care costs',
   ];
 
-  // set-up loading state
+  // Set-up loading state
   $scope.ideaForm = {
     loading: false
   }
 
   $scope.init = function () {
     $scope.$parent.idea = $scope.ideaForm;
-    // get initial listing of photos
+    // Get initial listing of photos
     if ($scope.formMode==='update') {
       $http.post('/photos/' + $scope.ideaForm.id).then(function onSuccess(sailsResponse){
         $scope.ideaForm.photos = sailsResponse.data;
       });
     } else {
       $scope.ideaForm.id = 'new';
+      $scope.ideaForm.published = true; // default to publish
       $http.post('/photos/queue').then(function onSuccess(sailsResponse){
         $scope.ideaForm.photos = sailsResponse.data;
       });
     }
   }
 
-  // watch for updates from socket.io via sails
+  // Watch for updates from socket.io via sails
   var imageHandler = $sails.on('photos', function (message) {
     if (message.verb === 'add') {
       $scope.ideaForm.photos.push(message.photo);
@@ -72,7 +79,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     }
   });
 
-  // helper functions to select/clear photos
+  // Helper functions to select/clear photos
   $scope.selectPhoto = function(photo){
     $scope.ideaForm.photo = photo;
     $scope.ideaForm.no_photo = false;
@@ -81,7 +88,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     $scope.ideaForm.photo = '';
   },
 
-  // toggle selection for multiple checklist
+  // Toggle selection for multiple checklist
   $scope.toggleAction = function toggleAction(item) {
     if (typeof $scope.ideaForm.action_areas === 'undefined') $scope.ideaForm.action_areas = [];
     var idx = $scope.ideaForm.action_areas.indexOf(item);
@@ -95,7 +102,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     else { $scope.ideaForm.outcome_areas.push(item); }
   };
 
-  // handle submit
+  // Handle submit
   $scope.submitIdeaForm = function(){
 
     // Set the loading state (i.e. show loading spinner)
@@ -121,11 +128,10 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     .then(function onSuccess(sailsResponse){
       if ($scope.formMode==='update') {
         toastr.success('Post saved OK!');
-        // propagate updates to parent IdeaListController controller
-        $scope.ideaForm = sailsResponse.data;
-        $scope.$parent.idea = $scope.ideaForm;
-        // close form
-        $scope.isEditing = false;
+        // Propagate updates to parent IdeaListController controller
+        $scope.$parent.idea = sailsResponse.data;
+        // Close form
+        $scope.$parent.isEditing = false;
       } else {
         window.location = '/idea/';
       }
@@ -140,7 +146,7 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
 
 }]);
 
-// simple filter for generating valid IDs from arbitrary values
+// Simple filter for generating valid IDs from arbitrary values
 IdeaApp.filter('slugify',function() {
   return function(input) {
     if (input) {
