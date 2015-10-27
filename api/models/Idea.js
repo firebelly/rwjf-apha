@@ -9,8 +9,6 @@ var conf = sails.config.custom;
 
 module.exports = {
 
-  schema: false,
-  
   attributes: {
     idea_name: { type: 'string' },
     idea_content: { type: 'string' },
@@ -30,7 +28,7 @@ module.exports = {
     monitor: { type: 'string', defaultsTo: null }
   },
 
-  // move queue directory of photos to photos/idea.id, recreate /queue for next idea
+  // Move queue directory of photos to photos/idea.id, recreate /queue for next idea
   afterCreate: function(idea, cb) {
     fs.move(conf.photosDir + '/queue', conf.photosDir + '/' + idea.id, function (err) {
       if (err) cb(err);
@@ -42,6 +40,8 @@ module.exports = {
     });
     cb();
   },
+
+  // Remove photo directory for Idea if it's destroyed
   afterDestroy: function(destroyedRecords, cb) {
     _.each(destroyedRecords, function(record) {
       fs.remove(conf.photosDir + '/' + record.id, function (err) {
@@ -50,9 +50,13 @@ module.exports = {
     });
     cb();
   },
+
+  // Default various values on Ideas
   afterValidate: function(values, cb) {
     if (values.first_name) {
       values.full_name = [values.first_name, values.middle, values.last_name].join(' ');
+    } else {
+      values.full_name = '';
     }
     if (values.twitter) {
       // Force @ in twitter handle
