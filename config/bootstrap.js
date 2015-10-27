@@ -11,13 +11,9 @@
 
 module.exports.bootstrap = function(cb) {
   // Clear out Monitors on startup
-  Monitor.destroy({ id: { '!': null } }).exec(function(err, updated) {
+  Idea.update({ id: { '!': null }}, { monitor: null }).exec(function(err, updated) {
     if (err) return cb(err);
-    sails.log.verbose('Monitors cleared...');
-    Idea.update({ id: { '!': null }}, { monitor: null }).exec(function(err, updated) {
-      if (err) return cb(err);
-      sails.log.verbose('Ideas cleared...');
-      cb();
-    });
+    sails.log.verbose('Ideas cleared...');
+    cb();
   });
 };

@@ -55,8 +55,8 @@ module.exports = {
       values.full_name = [values.first_name, values.middle, values.last_name].join(' ');
     }
     if (values.twitter) {
-      // Remove @ from twitter handle if it's included (we'll add it in the view)
-      values.twitter = values.twitter.replace('@','');
+      // Force @ in twitter handle
+      values.twitter = '@' + values.twitter.replace('@','');
     }
     if (values.photo) {
       values.photo_url = conf.photosBaseURL + '/' + values.id + '/' + values.photo;
