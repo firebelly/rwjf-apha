@@ -45,17 +45,12 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
 
   // Watch for sails socket broadcasts
   var refreshHandler = $sails.on('monitor', function(message) {
-    if (message.verb === 'restart') {
-      setTimeout(function() {
-        $window.location.href = '/';
-      }, 2000);
-    } else if (message.verb === 'refresh' && message.data.id==$scope.monitor.id) {
+    if (message.verb === 'refresh' && message.data.id==$scope.monitor.id) {
       $scope.hasBeenLiked = false;
       $scope.transitioning = true;
 
       // ping HQ that this monitor is still alive
       $sails.post('/monitor/ping/' + $scope.monitor.id);
-
 
       $timeout(function() {
         $scope.monitor = message.data;

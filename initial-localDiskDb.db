@@ -1,0 +1,446 @@
+{
+  "data": {
+    "idea": [
+      {
+        "idea_name": "We’re all in this together",
+        "idea_content": "Tackle obesity in the workforce by extending county employees’ breaks to allow time for daily exercise.",
+        "organization": "Riverside County Public Health",
+        "twitter": "@RivCoDoc",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 94,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:16:16.407Z",
+        "updatedAt": "2015-10-27T22:08:24.013Z",
+        "id": 1,
+        "action_areas": [
+          "Shared values",
+          "Health care"
+        ],
+        "photo": "Riverside-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/1/Riverside-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Revitalize a building, revitalize a city",
+        "idea_content": "Revitalize abandoned shopping complex as community health center and public gathering place.",
+        "action_areas": [
+          "Health care",
+          "Shared values",
+          "Communities"
+        ],
+        "organization": "Jackson Medical Mall",
+        "twitter": "@JacksonMedMall",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 94,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:45:15.602Z",
+        "updatedAt": "2015-10-27T22:08:34.025Z",
+        "id": 2,
+        "photo": "Jackson_03-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/2/Jackson_03-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Looking at Health Through a New Lens",
+        "idea_content": "Improve health services for Native American communities through strategic partnerships and honest dialog about social inequities.",
+        "action_areas": [
+          "Shared values",
+          "Communities"
+        ],
+        "organization": "Multnomah County, OR",
+        "twitter": "@multco",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 94,
+        "monitor": "39",
+        "createdAt": "2015-10-27T19:45:49.385Z",
+        "updatedAt": "2015-10-27T22:07:53.970Z",
+        "id": 3,
+        "photo": "Eugene-(Multnomah)-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/3/Eugene-(Multnomah)-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Where health starts early",
+        "idea_content": "Local churches, hospitals + doctors and clinic volunteers working together to promote youth literacy through free family reading programs.",
+        "action_areas": [
+          "Shared values",
+          "Communities",
+          "Collaboration",
+          "Health care"
+        ],
+        "organization": "Tulsa, OK",
+        "twitter": "@cityoftulsagov",
+        "num_likes": 1,
+        "num_views": 94,
+        "monitor": "40",
+        "createdAt": "2015-10-27T19:46:28.985Z",
+        "updatedAt": "2015-10-27T22:08:13.985Z",
+        "id": 4,
+        "published": true,
+        "photo": "Tulsa-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/4/Tulsa-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Where no family goes hungry",
+        "idea_content": "Keep kids healthy by opening a health-focused charter school offering cooking classes, a community garden and nutritious meals.",
+        "action_areas": [
+          "Shared values",
+          "Collaboration"
+        ],
+        "organization": "ECO Charter School",
+        "twitter": "@ECOCamden",
+        "published": true,
+        "num_likes": 1,
+        "num_views": 94,
+        "monitor": "38",
+        "createdAt": "2015-10-27T19:46:54.973Z",
+        "updatedAt": "2015-10-27T22:08:23.996Z",
+        "id": 5,
+        "photo": "Camden-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/5/Camden-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Together we are #Not62",
+        "idea_content": "Work with neighborhood bodega owners to stock more fresh, healthy foods for local families.",
+        "action_areas": [
+          "Shared values",
+          "Health care",
+          "Communities",
+          "Collaboration"
+        ],
+        "organization": "Bronx CAN Initiative",
+        "twitter": "@BronxCANHealth",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 94,
+        "monitor": "41",
+        "createdAt": "2015-10-27T19:47:52.406Z",
+        "updatedAt": "2015-10-27T22:08:34.011Z",
+        "id": 6,
+        "photo": "Bronx-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/6/Bronx-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Going green to improve health",
+        "idea_content": "Attract green companies to create local jobs by building a solar panel farm and biofuel production plant at an abandoned industrial site.",
+        "action_areas": [
+          "Collaboration",
+          "Communities",
+          "Shared values"
+        ],
+        "organization": "Bridgeport, CT",
+        "twitter": "@BGreenBPT",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:48:26.988Z",
+        "updatedAt": "2015-10-27T22:07:24.238Z",
+        "id": 7,
+        "photo": "Bridgeport-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/7/Bridgeport-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Rebuilding the community together",
+        "idea_content": "Build a new College of Osteopathic Medicine at abandoned mill site, offering free clinics, health fairs and youth education.",
+        "action_areas": [
+          "Health care",
+          "Collaboration",
+          "Communities",
+          "Shared values"
+        ],
+        "organization": "Northside Development Group",
+        "twitter": "@SpartanburgNDG",
+        "published": true,
+        "num_likes": 1,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:49:12.359Z",
+        "updatedAt": "2015-10-27T22:07:24.238Z",
+        "id": 8,
+        "photo": "Spartanburg-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/8/Spartanburg-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Health starts from within",
+        "idea_content": "Revive “the Ojibwe way” for a new generation of tribal youth through immersive native language, culture and cooking classes.",
+        "action_areas": [
+          "Shared values",
+          "Communities",
+          "Collaboration"
+        ],
+        "organization": "Lac Du Flambeau, WI",
+        "twitter": "@LDFtribe",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:51:23.320Z",
+        "updatedAt": "2015-10-27T22:07:24.238Z",
+        "id": 9,
+        "photo": "LFB-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/9/LFB-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Rooting out health inequities",
+        "idea_content": "Improve quality of life for all families by building new green spaces and mixed income housing while campaigning to raise the minimum wage.",
+        "action_areas": [
+          "Shared values",
+          "Communities",
+          "Collaboration"
+        ],
+        "organization": "Kansas City, KS",
+        "twitter": "@kcchamber",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:51:49.353Z",
+        "updatedAt": "2015-10-27T22:08:14.001Z",
+        "id": 10,
+        "photo": "Kansas-City-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/10/Kansas-City-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Healing invisible wounds",
+        "idea_content": "Improve the high school graduation rate on Menominee Reservation by creating safe spaces and emotional support programs on campus.",
+        "action_areas": [
+          "Shared values",
+          "Communities",
+          "Collaboration"
+        ],
+        "organization": "Menominee Nation, WI",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:52:20.562Z",
+        "updatedAt": "2015-10-27T22:08:03.992Z",
+        "id": 11,
+        "photo": "Menominee_02-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/11/Menominee_02-v2.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Rewriting the script",
+        "idea_content": "Provide subsidized or free financial advising and employment services for low-income families and individuals",
+        "action_areas": [
+          "Collaboration",
+          "Communities",
+          "Health care"
+        ],
+        "organization": "Lawrence Community Works",
+        "twitter": "@LCWorksOrg",
+        "published": true,
+        "num_likes": 0,
+        "num_views": 93,
+        "monitor": null,
+        "createdAt": "2015-10-27T19:52:41.656Z",
+        "updatedAt": "2015-10-27T22:07:43.971Z",
+        "id": 12,
+        "photo": "Lawrence_02.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/12/Lawrence_02.jpg",
+        "full_name": ""
+      },
+      {
+        "idea_name": "Where racial justice and health equity meet",
+        "idea_content": "Provide easily accessible and confidential health and social services to children of refugees to ensure their long-term well-being.",
+        "action_areas": [
+          "Communities",
+          "Collaboration"
+        ],
+        "organization": "Everett, MA",
+        "twitter": "@EnergizeEverett",
+        "published": true,
+        "num_likes": 1,
+        "num_views": 82,
+        "monitor": "37",
+        "createdAt": "2015-10-27T19:53:07.723Z",
+        "updatedAt": "2015-10-27T22:08:03.977Z",
+        "id": 13,
+        "photo": "Everett-v2.jpg",
+        "no_photo": false,
+        "photo_url": "http://photos.rwjf.dev/13/Everett-v2.jpg",
+        "first_name": "",
+        "last_name": "",
+        "full_name": ""
+      }
+    ],
+    "monitor": [
+      {
+        "ping": 1445983684584,
+        "paused": false,
+        "socketId": "",
+        "createdAt": "2015-10-27T22:07:30.419Z",
+        "updatedAt": "2015-10-27T22:08:04.584Z",
+        "id": 37,
+        "idea": 13
+      },
+      {
+        "ping": 1445983704858,
+        "paused": false,
+        "socketId": "",
+        "createdAt": "2015-10-27T22:07:31.245Z",
+        "updatedAt": "2015-10-27T22:08:24.858Z",
+        "id": 38,
+        "idea": 5
+      },
+      {
+        "ping": 1445983674588,
+        "paused": false,
+        "socketId": "",
+        "createdAt": "2015-10-27T22:07:34.425Z",
+        "updatedAt": "2015-10-27T22:07:54.589Z",
+        "id": 39,
+        "idea": 3
+      },
+      {
+        "ping": 1445983694587,
+        "paused": false,
+        "socketId": "",
+        "createdAt": "2015-10-27T22:07:40.543Z",
+        "updatedAt": "2015-10-27T22:08:14.587Z",
+        "id": 40,
+        "idea": 4
+      },
+      {
+        "ping": 1445983714051,
+        "paused": false,
+        "socketId": "",
+        "createdAt": "2015-10-27T22:07:48.723Z",
+        "updatedAt": "2015-10-27T22:08:34.051Z",
+        "id": 41,
+        "idea": 6
+      }
+    ]
+  },
+  "schema": {
+    "idea": {
+      "idea_name": {
+        "type": "string"
+      },
+      "idea_content": {
+        "type": "string"
+      },
+      "action_areas": {
+        "type": "array"
+      },
+      "outcome_areas": {
+        "type": "array"
+      },
+      "photo": {
+        "type": "string"
+      },
+      "no_photo": {
+        "type": "boolean"
+      },
+      "first_name": {
+        "type": "string"
+      },
+      "middle": {
+        "type": "string"
+      },
+      "last_name": {
+        "type": "string"
+      },
+      "organization": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "twitter": {
+        "type": "string"
+      },
+      "published": {
+        "type": "boolean"
+      },
+      "num_likes": {
+        "type": "integer",
+        "defaultsTo": 0
+      },
+      "num_views": {
+        "type": "integer",
+        "defaultsTo": 0
+      },
+      "monitor": {
+        "type": "string",
+        "defaultsTo": null
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "monitor": {
+      "paused": {
+        "type": "boolean",
+        "defaultsTo": false
+      },
+      "socketId": {
+        "type": "string",
+        "defaultsTo": ""
+      },
+      "ping": {
+        "type": "integer",
+        "defaultsTo": 0
+      },
+      "idea": {
+        "type": "integer",
+        "model": "idea",
+        "foreignKey": true,
+        "alias": "idea"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "idea": {
+      "id": 13
+    },
+    "monitor": {
+      "id": 41
+    }
+  }
+}

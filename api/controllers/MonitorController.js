@@ -50,7 +50,7 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 6000);
+}, 10000);
 
 module.exports = {
 
@@ -61,11 +61,19 @@ module.exports = {
       if (err) {return res.serverError(err);}
       Monitor.publishCreate(monitor, req);
       req.session.monitor = monitor;
-      res.view('monitor/show', {
-        monitor: monitor,
-        layout: false
-      });
 
+      Monitor.findFreshIdea(monitor.id, function(err, freshMonitor) {
+        if (err) {return res.serverError(err);}
+        // populate idea, broadcast to sockets
+        Monitor.findOne(monitor.id).populate('idea').exec(function(err, refreshedMonitor) {
+          sails.sockets.blast('monitor', { verb: 'refresh', data: refreshedMonitor });
+
+          res.view('monitor/show', {
+            monitor: refreshedMonitor,
+            layout: false
+          });
+        });
+      });
     });
   },
 
