@@ -66,7 +66,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       position: relative;
       flex-basis: 14*$column;
       @include transition(background);
-      padding: 100px 100px 100px ($column*5);
+      padding: 100px 130px 100px ($column*5);
       &::before {
         right: 0;
         bottom: 0;
@@ -259,6 +259,59 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
         .likes {
           .icon-heart {
             fill: $white;
+          }
+        }
+      }
+
+      .target-areas {
+        margin: 0;
+        padding: 0;
+        top: -40px;
+        flex-wrap: wrap;
+        position: relative;
+        .target-area {
+          opacity: .35;
+          list-style: none;
+          text-align: center;
+          margin-bottom: 20px;
+          @include transition(opacity);
+          &.active {
+            opacity: 1;
+          }
+          h4 {
+            font-size: 15px;
+            font-weight: 200;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            &::after {
+              left: 0;
+              width: 100%;
+              content: '';
+              height: 2px;
+              bottom: -4px;
+              position: absolute;
+              background: rgba($white,.5);
+            }
+          }
+        }
+        .area-number {
+          width: 42px;
+          height: 42px;
+          margin: auto;
+          display: flex;
+          list-style: none;
+          background: none;
+          background: $white;
+          transform: rotate(45deg);
+          &:focus {
+            outline: none;
+          }
+          .number {
+            margin: auto;
+            font-size: 18px;
+            display: inline-block;
+            transform: rotate(-45deg);
           }
         }
       }
