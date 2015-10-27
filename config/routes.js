@@ -34,13 +34,10 @@ module.exports.routes = {
 
   '/': 'MonitorController.new',
   '/hq': 'MonitorController.hq',
-  '/monitor/:id': 'MonitorController.show',
   '/monitor/like/:id': 'MonitorController.like',
+  '/monitor/ping/:id': 'MonitorController.ping',
   '/monitor/unpause/:id': 'MonitorController.unpause',
-  '/monitor/refresh/:id': 'MonitorController.refresh',
   'get /idea/new': 'IdeaController.new',
-  // 'get /ideas/like/:id': 'IdeaController.like',
-  'get /ideas': 'IdeaController.index',
   '/photos/:id': 'IdeaController.photos',
 
   /***************************************************************************

@@ -8,11 +8,11 @@ var chokidar = require('chokidar'),
     glob = require('glob'),
     path = require('path');
 
-// custom app config (mostly for photos_base_url and photos_dir)
+// custom app config (mostly for photosBaseURL and photosDir)
 var conf = sails.config.custom;
 
 // watch /queue/ dir for files added/removed
-var watcher = chokidar.watch(conf.photos_dir + '/queue/', {
+var watcher = chokidar.watch(conf.photosDir + '/queue/', {
   ignored: /[\/\\]\./, 
   persistent: true
 });
@@ -20,16 +20,16 @@ var watcher = chokidar.watch(conf.photos_dir + '/queue/', {
 // if photo is added, broadcast with socket
 watcher.on('add', function(file) { 
   var filename = path.basename(file);
-  var photo = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
+  var photo = { src: conf.photosBaseURL + '/queue/' + filename, name: filename };
   console.log('File', file, photo, 'has been added');
   sails.sockets.blast('photos', { verb: 'add', photo: photo });
 });
 
-// similarly, if photo is deleted tell Angular
+// similarly, broadcast if a photo is deleted
 watcher.on('unlink', function(file) { 
   console.log('File', file, 'has been unlinked');
   var filename = path.basename(file);
-  var photo = { src: conf.photos_base_url + '/queue/' + filename, name: filename };
+  var photo = { src: conf.photosBaseURL + '/queue/' + filename, name: filename };
   sails.sockets.blast('photos', { verb: 'unlink', photo: photo });
 });
 
@@ -55,25 +55,8 @@ module.exports = {
           }
         }
       });
-
     });
   },
-
-  // // edit idea page, not currently used
-  // edit: function(req, res, next) {
-  //   Idea.count().exec(function countCB(error, found) { 
-  //     var numIdeas = found; 
-  //     Idea.findOne(req.param('id'), function foundIdea(err, idea) {
-  //       if (err) return next(err);
-  //       if (!idea) return next();
-  //       res.view('idea/create', {
-  //         idea: idea,
-  //         formMode: 'edit',
-  //         numIdeas: numIdeas
-  //       });
-  //     });
-  //   });
-  // },
 
   // new idea page
   new: function(req, res) {
@@ -89,11 +72,11 @@ module.exports = {
 
   // spits out json list of images in /:id/ (either idea.id or 'queue') directory for initial form loads
   photos: function(req, res) {
-    glob(conf.photos_dir + '/' + req.param('id') + '/*', function (er, files) {
+    glob(conf.photosDir + '/' + req.param('id') + '/*', function (er, files) {
       photos = [];
       _.each(files, function(file) {
         var filename = path.basename(file);
-        photos.push({ src: conf.photos_base_url + '/' + req.param('id') + '/' + filename, name: filename });
+        photos.push({ src: conf.photosBaseURL + '/' + req.param('id') + '/' + filename, name: filename });
       });
       res.json(photos);
     });

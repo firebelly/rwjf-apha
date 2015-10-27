@@ -3,6 +3,6 @@
  */
 
 module.exports.custom = {
-  photos_dir: '/Users/nate/Sites/rwjf/photos',
-  photos_base_url: 'http://photos.rwjf.dev'
+  photosDir: '/Users/nate/Sites/rwjf/photos',
+  photosBaseURL: 'http://photos.rwjf.dev'
 };

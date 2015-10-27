@@ -6,7 +6,7 @@ IdeaApp.controller('IdeaSearchController', ['$scope', '$sails', '$http', 'toastr
 
 // Controller for Idea List
 IdeaApp.controller('IdeaListController', ['$scope', '$sails', '$http', 'toastr', '$window', function($scope, $sails, $http, toastr, $window){
-  $scope.idea = { is_editing: false };
+  $scope.isEditing = false;
   $scope.getPublishedVerb = function() {
     return $scope.idea.published ? 'Unpublish' : 'Publish';
   }
@@ -18,7 +18,7 @@ IdeaApp.controller('IdeaListController', ['$scope', '$sails', '$http', 'toastr',
     });
   }
   $scope.toggleEditing = function() {
-    $scope.idea.is_editing = !$scope.idea.is_editing;
+    $scope.isEditing = !$scope.isEditing;
   }
 }]);
 
@@ -47,19 +47,16 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
   }
 
   $scope.init = function () {
-    // console.log('init', $scope.ideaForm.id, $scope.formMode);
     $scope.$parent.idea = $scope.ideaForm;
     // get initial listing of photos
     if ($scope.formMode==='update') {
       $http.post('/photos/' + $scope.ideaForm.id).then(function onSuccess(sailsResponse){
         $scope.ideaForm.photos = sailsResponse.data;
-        // console.log(sailsResponse);
       });
     } else {
       $scope.ideaForm.id = 'new';
       $http.post('/photos/queue').then(function onSuccess(sailsResponse){
         $scope.ideaForm.photos = sailsResponse.data;
-        // console.log('/photos/queue', sailsResponse, sailsResponse.data);
       });
     }
   }
@@ -90,14 +87,12 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
     var idx = $scope.ideaForm.action_areas.indexOf(item);
     if (idx > -1) { $scope.ideaForm.action_areas.splice(idx, 1); }
     else { $scope.ideaForm.action_areas.push(item); }
-    // console.log($scope.ideaForm.action_areas);
   };
   $scope.toggleOutcome = function toggleOutcome(item) {
     if (typeof $scope.ideaForm.outcome_areas === 'undefined') $scope.ideaForm.outcome_areas = [];
     var idx = $scope.ideaForm.outcome_areas.indexOf(item);
     if (idx > -1) { $scope.ideaForm.outcome_areas.splice(idx, 1); }
     else { $scope.ideaForm.outcome_areas.push(item); }
-    // console.log($scope.ideaForm.outcome_areas);
   };
 
   // handle submit
@@ -124,14 +119,13 @@ IdeaApp.controller('IdeaFormController', ['$scope', '$sails', '$http', 'toastr',
       published: $scope.ideaForm.published
     })
     .then(function onSuccess(sailsResponse){
-      // console.log(sailsResponse);
       if ($scope.formMode==='update') {
         toastr.success('Post saved OK!');
         // propagate updates to parent IdeaListController controller
         $scope.ideaForm = sailsResponse.data;
         $scope.$parent.idea = $scope.ideaForm;
         // close form
-        $scope.$parent.idea.is_editing = false;
+        $scope.isEditing = false;
       } else {
         window.location = '/idea/';
       }

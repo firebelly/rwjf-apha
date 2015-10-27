@@ -1,16 +1,26 @@
 var MonitorApp = angular.module('MonitorApp', ['toastr','ngSails']);
-// single monitor
-MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr', '$timeout', '$interval', function($scope, $sails, $http, toastr, $timeout, $interval){
-  $scope.has_been_liked = false;
-  $scope.transitioning = true;
-  var closeLikeTimer;
 
+// quickie array shuffle
+var shuffleArray = function(o){
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+  return o;
+}
+
+// single monitor
+MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$timeout', '$interval', function($scope, $sails, toastr, $timeout, $interval){
+  var closeLikeTimer;
+  var colorSchemeArr = shuffleArray([1,2,3,4,5,6]);
+
+  $scope.hasBeenLiked = false;
+  $scope.transitioning = false;
+  $scope.colorSchemeIndex = colorSchemeArr.pop();
+ 
   $scope.likeIdea = function() {
     // send like to pause monitor & update num_likes
-    $http.post('/monitor/like/'+$scope.monitor.id)
+    $sails.post('/monitor/like/'+$scope.monitor.id)
     .then(function onSuccess(sailsResponse){
       $scope.monitor.idea.num_likes += 1;
-      $scope.has_been_liked = true;
+      $scope.hasBeenLiked = true;
       // kill closeLikeTimer if it exists
       if (closeLikeTimer) $timeout.cancel(closeLikeTimer);
       closeLikeTimer = $timeout($scope.closeLike, 5000);
@@ -23,9 +33,9 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
   $scope.closeLike = function() {
     if (closeLikeTimer) $timeout.cancel(closeLikeTimer);
     // unpause the monitor
-    $http.post('/monitor/unpause/'+$scope.monitor.id)
+    $sails.post('/monitor/unpause/'+$scope.monitor.id)
     .then(function onSuccess(sailsResponse){
-      $scope.has_been_liked = false;
+      $scope.hasBeenLiked = false;
     })
     .catch(function onError(sailsResponse){
       toastr.error('Error unpausing monitor: '+sailsResponse.status, 'Error');
@@ -33,72 +43,89 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', '$http', 'toastr
   }
 
   // watch for monitor updates
-  var refreshHandler = $sails.on('monitors', function (message) {
-    if (message.verb === 'refresh' && message.monitor.id==$scope.monitor.id) {
-      // console.log('monitor refresh sent: '+message.monitor.id);
-      $scope.has_been_liked = false;
+  var refreshHandler2 = $sails.on('message', function(message) {
+    console.log('message',message);
+  });
+
+  var refreshHandler = $sails.on('monitor', function(message) {
+    if (message.verb === 'restart') {
+      setTimeout(function() {
+        $window.location.href = '/';
+      }, 500);
+    } else if (message.verb === 'refresh' && message.data.id==$scope.monitor.id) {
+      // console.log('data refresh sent: '+message.data.id);
+      $scope.hasBeenLiked = false;
       $scope.transitioning = true;
 
+      // ping HQ that this monitor is still alive
+      $sails.post('/monitor/ping/'+$scope.monitor.id);
+
       $timeout(function() {
-        $scope.monitor = message.monitor;
+        $scope.monitor = message.data;
         $scope.transitioning = false;
+        
         // refresh random monitor color
-        $scope.monitor.random_color = Math.floor(Math.random() * 6) + 1;
+        if (!colorSchemeArr.length) colorSchemeArr = shuffleArray([1,2,3,4,5,6]);
+        $scope.colorSchemeIndex = colorSchemeArr.pop();
       }, 500);
     }
   });
 
   // stop watching on destroy
   $scope.$on('$destroy', function() {
-    $sails.off('monitors', refreshHandler);
+    $sails.off('monitor', refreshHandler);
   });
 
 }]);
 
 // monitor HQ
-MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$http', 'toastr', '$timeout', function($scope, $sails, $http, toastr, $timeout){
-  $scope.monitors = [];
-  $http.get('/monitor')
-  .then(function onSuccess(sailsResponse){
-    $scope.monitors = sailsResponse.data;
-  })
-  .catch(function onError(sailsResponse){
-    toastr.error(sailsResponse.status, 'Error');
-  })
+MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$sails', 'toastr', '$timeout', function($scope, $sails, $sails, toastr, $timeout){
   $scope.log = "Listening...\n";
 
+  $sails.get('/monitor')
+  .then(function(sailsResponse){
+    $scope.monitors = sailsResponse.data;
+  },function(sailsResponse) {
+    toastr.error(sailsResponse, 'Error');
+  });
+
   $scope.deleteMonitor = function(id) {
-    $http.post('/monitor/destroy/'+id)
+    $sails.post('/monitor/destroy/'+id)
     .then(function onSuccess(sailsResponse){
       var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(id);
       $scope.monitors.splice(idx, 1);
     });
   }
 
-  var HQHandler = $sails.on('monitors', function (message) {
+  var HQHandler = $sails.on('monitor', function(message) {
+    console.log(message);
     var extra = '';
-    if (message.verb === 'add') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.monitor.id);
-      // console.log(idx, message);
+    if (message.verb === 'created') {
+      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
       if (idx<0) {
-        $scope.monitors.push(message.monitor);
+        $scope.monitors.push(message.data);
       } else {
-        $scope.monitors[idx] = message.monitor;
-        extra = ' : Idea ' + message.monitor.idea.id;
+        $scope.monitors[idx] = message.data;
+        // extra = ' : Idea ' + message.data.idea.id;
       }
     }
-    else if (message.verb === 'remove') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.monitor.id);
+    else if (message.verb === 'destroyed') {
+      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.id);
       $scope.monitors.splice(idx, 1);
     }
     else if (message.verb === 'refresh') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.monitor.id);
-      console.log('refresh: ',idx);
-      console.log($scope.monitors[idx], message.monitor);
-      extra = ' : Idea ' + message.monitor.idea.id;
-      $scope.monitors[idx] = message.monitor;
+      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
+      // console.log('refresh: ',idx);
+      // console.log($scope.monitors[idx], message.data);
+      extra = ' : Idea ' + message.data.idea.id;
+      $scope.monitors[idx] = message.data;
     }
-    $scope.log = ('monitor '+message.verb+': '+message.monitor.id) + extra + "\n" + $scope.log.substr(0,10000);
+    $scope.log = ('monitor '+message.verb+': '+message.id) + extra + "\n" + $scope.log.substr(0,10000);
+  });
+
+  // stop watching on destroy
+  $scope.$on('$destroy', function() {
+    $sails.off('monitor', HQHandler);
   });
 
 }]);

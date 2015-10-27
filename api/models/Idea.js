@@ -27,26 +27,24 @@ module.exports = {
     published: { type: 'boolean' },
     num_likes: { type: 'integer', defaultsTo: 0 },
     num_views: { type: 'integer', defaultsTo: 0 },
-    // ,monitor: {
-    //   model: 'monitor'
-    // }
+    monitor: { type: 'string', defaultsTo: null }
   },
 
   // move queue directory of photos to photos/idea.id, recreate /queue for next idea
   afterCreate: function(idea, cb) {
-    fs.move(conf.photos_dir + '/queue', conf.photos_dir + '/' + idea.id, function (err) {
+    fs.move(conf.photosDir + '/queue', conf.photosDir + '/' + idea.id, function (err) {
       if (err) cb(err);
-      console.log('Moved queue to ' + conf.photos_dir + '/' + idea.id + ' OK!');
-      fs.mkdir(conf.photos_dir + '/queue', function (err) {
+      console.log('Moved queue to ' + conf.photosDir + '/' + idea.id + ' OK!');
+      fs.mkdir(conf.photosDir + '/queue', function (err) {
         if (err) cb(err);
-        console.log('Made dir '+conf.photos_dir + '/queue' + ' OK!');
+        console.log('Made dir '+conf.photosDir + '/queue' + ' OK!');
       });
     });
     cb();
   },
   afterDestroy: function(destroyedRecords, cb) {
     _.each(destroyedRecords, function(record) {
-      fs.remove(conf.photos_dir + '/' + record.id, function (err) {
+      fs.remove(conf.photosDir + '/' + record.id, function (err) {
         if (err) cb(err);
       });
     });
@@ -58,7 +56,7 @@ module.exports = {
       values.full_name = [values.first_name, values.middle, values.last_name].join(' ');
     }
     if (values.photo) {
-      values.photo_url = conf.photos_base_url + '/' + values.id + '/' + values.photo;
+      values.photo_url = conf.photosBaseURL + '/' + values.id + '/' + values.photo;
     } else if (values.no_photo) {
       values.photo_url = '/images/no-photo.png';
     }
