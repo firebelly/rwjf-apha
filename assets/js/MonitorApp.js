@@ -9,7 +9,7 @@ var shuffleArray = function(o){
 // Single monitor
 MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$timeout', '$interval', function($scope, $sails, toastr, $timeout, $interval){
   var closeLikeTimer;
-  var colorSchemeArr = shuffleArray([1,2,3,4,5,6]);
+  var colorSchemeArr = shuffleArray([1,2,3,4]);
 
   $scope.hasBeenLiked = false;
   $scope.transitioning = false;
@@ -63,7 +63,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
         $scope.transitioning = false;
         
         // refresh random monitor color
-        if (!colorSchemeArr.length) colorSchemeArr = shuffleArray([1,2,3,4,5,6]);
+        if (!colorSchemeArr.length) colorSchemeArr = shuffleArray([1,2,3,4]);
         $scope.colorSchemeIndex = colorSchemeArr.pop();
       }, 2500);
     }
