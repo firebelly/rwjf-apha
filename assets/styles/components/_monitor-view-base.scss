@@ -1,8 +1,8 @@
 // Monitor View Base Styles
 
 // Custom color based on body data-color attribute
-$colors: $purple, $turquoise, $gold, $orange, $green, $blue;
-@for $i from 1 through 6 {
+$colors: $purple, $orange, $green, $blue;
+@for $i from 1 through 4 {
   .monitor-view[data-color='#{$i}'] { 
     @include colorScheme(nth($colors, $i)); 
   }
@@ -310,6 +310,7 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           .number {
             margin: auto;
             font-size: 18px;
+            font-weight: 200;
             display: inline-block;
             transform: rotate(-45deg);
           }
