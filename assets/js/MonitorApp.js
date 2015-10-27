@@ -60,6 +60,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
       // ping HQ that this monitor is still alive
       $sails.post('/monitor/ping/'+$scope.monitor.id);
 
+
       $timeout(function() {
         $scope.monitor = message.data;
         $scope.transitioning = false;
