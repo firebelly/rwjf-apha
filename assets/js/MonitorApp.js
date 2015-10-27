@@ -7,7 +7,7 @@ var shuffleArray = function(o){
 }
 
 // Single monitor
-MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$timeout', '$interval', function($scope, $sails, toastr, $timeout, $interval){
+MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$timeout', function($scope, $sails, toastr, $timeout){
   var closeLikeTimer;
   var colorSchemeArr = shuffleArray([1,2,3,4]);
 
@@ -50,7 +50,6 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
         $window.location.href = '/';
       }, 2000);
     } else if (message.verb === 'refresh' && message.data.id==$scope.monitor.id) {
-      // console.log('data refresh sent: ' + message.data.id);
       $scope.hasBeenLiked = false;
       $scope.transitioning = true;
 
@@ -77,7 +76,7 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
 }]);
 
 // Monitor HQ Controller
-MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$sails', 'toastr', '$timeout', function($scope, $sails, $sails, toastr, $timeout){
+MonitorApp.controller('MonitorHQController', ['$scope', '$sails', 'toastr', '$timeout', function($scope, $sails, toastr, $timeout){
   $scope.log = "Listening...\n";
 
   // Pulls in initial state of all monitors
@@ -99,7 +98,6 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$sails', 'toa
 
   // Watch for monitor updates and show in HQ log
   var HQHandler = $sails.on('monitor', function(message) {
-    console.log(message);
     var extra = '',
         monitor_id = '',
         idx;
