@@ -100,25 +100,30 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', '$sails', 'toa
   // Watch for monitor updates and show in HQ log
   var HQHandler = $sails.on('monitor', function(message) {
     console.log(message);
-    var extra = '';
+    var extra = '',
+        monitor_id = '',
+        idx;
     if (message.verb === 'created') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
+      idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
       if (idx<0) {
         $scope.monitors.push(message.data);
       } else {
         $scope.monitors[idx] = message.data;
       }
+      monitor_id = message.data.id;
     }
     else if (message.verb === 'destroyed') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.id);
+      idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.id);
       $scope.monitors.splice(idx, 1);
+      monitor_id = message.id;
     }
     else if (message.verb === 'refresh') {
-      var idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
-      extra = ' : Idea ' + message.data.idea.id;
+      idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
+      extra = ': Idea ' + message.data.idea.id;
       $scope.monitors[idx] = message.data;
+      monitor_id = message.data.id;
     }
-    $scope.log = ('monitor ' + message.verb + ': ' + message.id) + extra + "\n" + $scope.log.substr(0,10000);
+    $scope.log = ('monitor ' + monitor_id + ' ' + message.verb + extra + "\n") + $scope.log.substr(0,10000);
   });
 
   // Stop watching on destroy
