@@ -10,7 +10,10 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
 
 // monitor transition state
 .monitor-view.transitioning {
-  .post-image img {
+  .site-main {
+    opacity: 0;
+  }
+  .post .post-image img {
     opacity: 0;
   }
 }
@@ -39,9 +42,12 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
     }
   }
 
-  main {
+  .site-main {
+    opacity: 1;
     height: 100%;
     overflow-x: hidden;
+    transition-delay: 1s;
+    transition: opacity 1.5s ease-out;
   }
 
   .wrap {
@@ -165,13 +171,14 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
       }
 
       img {
+        opacity: 1;
         width: auto;
         height: 100%;
         max-width: none;
         vertical-align: top;
         mix-blend-mode: hard-light;
-        transition: opacity 1s 1s;
         transform: translateX(-48%);
+        transition: opacity 3s ease-out;
         -webkit-filter: grayscale(100%) brightness(80%);
       }
     }
@@ -305,7 +312,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 54px;
             margin: 0 auto 30px;
             display: inline-block;
-            @include transition(fill);
           }
         }
 
@@ -329,7 +335,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           background: none;
           transform: rotate(45deg);
           margin: $padding auto 16px;
-          @include transition(border-color);
           &:focus {
             outline: none;
           }
@@ -338,7 +343,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
             height: 27px;
             margin: auto;
             transform: rotate(-45deg);
-            @include transition(fill);
           }
         }
 
@@ -346,9 +350,6 @@ $colors: $purple, $turquoise, $gold, $orange, $green, $blue;
           p {
             font-size: 36px;
             font-weight: 200;
-          }
-          .icon-heart {
-            @include transition(fill);
           }
         }
       }

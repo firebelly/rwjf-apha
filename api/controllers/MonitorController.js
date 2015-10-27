@@ -49,7 +49,7 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 2500);
+}, 6000);
 
 module.exports = {
 

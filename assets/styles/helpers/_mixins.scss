@@ -2,7 +2,7 @@
 
 // Color scheme for monitor view
 @mixin transition($property) {
-  transition: $property 1s ease-out;
+  transition: $property 1.5s ease-out;
 }
 
 @mixin colorScheme($color) {
