@@ -34,7 +34,7 @@
         </div>
         <div class="wrap post-edit">
           <header class="post-header grid">
-            <h1 class="flex-item">Editing: {{ idea.idea_name }}</h1>
+            <h1 class="flex-item">Editing #{{ idea.id }}: {{ idea.idea_name }}</h1>
             <button ng-click="toggleEditing()" class="post-close post-toggle flex-item" data-tooltip="Close"><span class="visually-hidden">close</span><svg class="icon icon-x" role="img"><use xlink:href="#icon-x"></use></svg></button>
           </header>
           <%- partial ('form.ejs', {idea: idea}) %> 

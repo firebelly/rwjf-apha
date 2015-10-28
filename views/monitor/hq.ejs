@@ -14,11 +14,11 @@
   <h1>Monitors:</h1>
   <ul>
     <li ng-repeat="monitor in monitors">
-      Monitor {{ monitor.id }}: showing Idea {{ monitor.idea.id }} ({{ monitor.idea.idea_name}}) <a ng-click="deleteMonitor(monitor.id)">delete</a>
+      {{ monitorInfo(monitor) }} <a ng-click="deleteMonitor(monitor.id)">delete</a>
     </li>
   </ul>
   <h3>Log:</h3>
-  <textarea cols="30" rows="10" style="width: 100%; height: 500px; overflow: scroll;">{{ log }}</textarea>
+  <textarea id="log">{{ log }}</textarea>
   </main>
 
   <!--SCRIPTS-->

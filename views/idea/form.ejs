@@ -12,7 +12,7 @@
     <div class="flex-item target-areas one-third">
       <div>
         <h2>Action Area(s) Targeted</h2>
-        <p class="instructions">(Check all that apply)</p>
+        <p class="instructions"></p>
 
         <div class="checkbox-container" ng-repeat="action_area in action_areas">
           <input id="{{ ideaForm.id }}-{{ action_area | slugify }}" class="styled-checkbox" type="checkbox" ng-checked="ideaForm.action_areas.indexOf(action_area) > -1"
@@ -22,7 +22,7 @@
       </div>
       <div>
         <h2>Outcome Area(s) Targeted</h2>
-        <p class="instructions">(Check all that apply)</p>
+        <p class="instructions"></p>
 
         <div class="checkbox-container" ng-repeat="outcome_area in outcome_areas">
           <input id="{{ ideaForm.id }}-{{ outcome_area | slugify }}" class="styled-checkbox" type="checkbox" ng-checked="ideaForm.outcome_areas.indexOf(outcome_area) > -1"
@@ -54,7 +54,7 @@
       <div class="input-container flex-item user-name-middle">
         <label for="{{ ideaForm.id }}-user-name-middle">M.I.</label>
         <input type="text" name="middle" ng-model="ideaForm.middle" id="{{ ideaForm.id }}-user-name-middle" placeholder="I">      
-        <p class="instructions">(Optional)</p>        
+        <p class="instructions"></p>        
       </div>
       <div class="input-container flex-item user-name-last">
         <label for="{{ ideaForm.id }}-user-name-last">Last Name</label>
@@ -65,7 +65,7 @@
       <div class="input-container flex-item user-org">
         <label for="{{ ideaForm.id }}-user-organization">Organization Name</label>
         <input type="text" name="organization" ng-model="ideaForm.organization" id="{{ ideaForm.id }}-user-organization" placeholder="Sit Amet Consectetur">
-        <p class="instructions">(Optional)</p>
+        <p class="instructions"></p>
       </div>
       <div class="input-container flex-item user-email">
         <label for="{{ ideaForm.id }}-user-email">Email</label>
@@ -74,14 +74,14 @@
       <div class="input-container flex-item user-twitter">
         <label for="{{ ideaForm.id }}-user-twitter">Twitter Handle</label>
         <input type="text" name="twitter" ng-model="ideaForm.twitter" id="{{ ideaForm.id }}-user-twitter" placeholder="@palimpsest45BCE">
-        <p class="instructions">(Optional)</p>
+        <p class="instructions"></p>
       </div>
     </div>
   </div>
 
   <div class="submit-section">
     <div class="grid">
-      <div class="checkbox-container flex-item"><input class="styled-checkbox -inverted" id="{{ ideaForm.id }}-publish-on-save" type="checkbox" value="1" name="published" ng-model="ideaForm.published"><label for="{{ ideaForm.id }}-publish-on-save">Publish on save</label></div>
+      <div class="checkbox-container flex-item"><input class="styled-checkbox -inverted" id="{{ ideaForm.id }}-publish-on-save" type="checkbox" value="1" name="published" ng-model="ideaForm.published"><label for="{{ ideaForm.id }}-publish-on-save">{{ formMode=='update' ? 'Published' : 'Publish on save' }}</label></div>
       <input type="submit" value="Save" class="submit btn flex-item">
     </div>
   </div>

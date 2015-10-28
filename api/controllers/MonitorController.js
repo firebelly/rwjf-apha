@@ -50,21 +50,27 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 10000);
+}, 6000);
 
 module.exports = {
 
   // New monitor page
   new: function(req, res) {
-    Monitor.create({ ping: new Date().getTime() })
+    Monitor.create({ 
+      ip: req.ip, 
+      ping: new Date().getTime() 
+    })
     .exec(function(err, monitor) {
       if (err) {return res.serverError(err);}
+
+      // Broadcast creation of monitor
       Monitor.publishCreate(monitor, req);
       req.session.monitor = monitor;
 
+      // Initialize monitor with fresh idea
       Monitor.findFreshIdea(monitor.id, function(err, freshMonitor) {
         if (err) {return res.serverError(err);}
-        // populate idea, broadcast to sockets
+        // Populate idea, broadcast to sockets
         Monitor.findOne(monitor.id).populate('idea').exec(function(err, refreshedMonitor) {
           sails.sockets.blast('monitor', { verb: 'refresh', data: refreshedMonitor });
 
@@ -74,6 +80,7 @@ module.exports = {
           });
         });
       });
+
     });
   },
 
@@ -86,6 +93,7 @@ module.exports = {
       monitor.idea.save();
       monitor.paused = true;
       monitor.save();
+      sails.sockets.blast('monitor', { verb: 'like', data: monitor });
       return res.json(monitor);
     });
   },

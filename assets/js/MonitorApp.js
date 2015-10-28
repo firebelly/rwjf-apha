@@ -16,6 +16,8 @@ MonitorApp.controller('MonitorController', ['$scope', '$sails', 'toastr', '$time
   $scope.colorSchemeIndex = colorSchemeArr.pop();
  
   $scope.likeIdea = function() {
+    // Are we in the middle of transitioning? Abort like
+    if ($scope.transitioning) { return }
     // Send like to pause monitor & update num_likes
     $sails.post('/monitor/like/' + $scope.monitor.id)
     .then(function onSuccess(sailsResponse){
@@ -82,6 +84,14 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', 'toastr', '$ti
     toastr.error(sailsResponse, 'Error');
   });
 
+  $scope.monitorInfo = function(monitor) {
+    var info = 'Monitor #' + monitor.id + ' (' + monitor.ip + ')';
+    if (monitor.idea) {
+      info += ' — Showing Idea #' + monitor.idea.id + ' (' + monitor.idea.idea_name + ')';
+    }
+    return info;
+  }
+
   // Manually delete monitor links
   $scope.deleteMonitor = function(id) {
     $sails.post('/monitor/destroy/' + id)
@@ -93,8 +103,7 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', 'toastr', '$ti
 
   // Watch for monitor updates and show in HQ log
   var HQHandler = $sails.on('monitor', function(message) {
-    var extra = '',
-        monitor_id = '',
+    var monitor_info = '',
         idx;
     if (message.verb === 'created') {
       idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
@@ -103,20 +112,20 @@ MonitorApp.controller('MonitorHQController', ['$scope', '$sails', 'toastr', '$ti
       } else {
         $scope.monitors[idx] = message.data;
       }
-      monitor_id = message.data.id;
+      monitor_info = $scope.monitorInfo(message.data);
     }
     else if (message.verb === 'destroyed') {
       idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.id);
       $scope.monitors.splice(idx, 1);
-      monitor_id = message.id;
+      monitor_info = 'Monitor #' + message.id;
     }
-    else if (message.verb === 'refresh') {
+    else if (message.verb === 'refresh' || message.verb === 'like') {
       idx = $scope.monitors.map(function(e) { return e.id; }).indexOf(message.data.id);
-      extra = ': Idea ' + message.data.idea.id;
       $scope.monitors[idx] = message.data;
-      monitor_id = message.data.id;
+      monitor_info = $scope.monitorInfo(message.data);
     }
-    $scope.log = ('monitor ' + monitor_id + ' ' + message.verb + extra + "\n") + $scope.log.substr(0,10000);
+    // Dump data in top of log
+    $scope.log = (message.verb + ': ' + monitor_info + "\n") + $scope.log.substr(0,10000);
   });
 
   // Stop watching on destroy
