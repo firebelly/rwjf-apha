@@ -10,9 +10,7 @@ module.exports = {
     paused: { type: 'boolean', defaultsTo: false },
     ip: { type: 'string', defaultsTo: '' },
     ping: { type: 'integer', defaultsTo: 0 },
-    idea: { 
-      model: 'idea',
-    }
+    idea: { model: 'idea' }
   },
 
   // Null out monitor's idea before destroying

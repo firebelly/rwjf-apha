@@ -26,9 +26,7 @@ module.exports = {
     published: { type: 'boolean' },
     num_likes: { type: 'integer', defaultsTo: 0 },
     num_views: { type: 'integer', defaultsTo: 0 },
-    monitor: { 
-      model: 'monitor'
-    }
+    monitor: { model: 'monitor' }
   },
 
   // Move queue directory of photos to photos/idea.id, recreate /queue for next idea

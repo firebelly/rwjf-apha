@@ -49,6 +49,10 @@ var refreshInterval = setInterval(function(){
           sails.log.error(err);
         } else {
           Monitor.publishDestroy(monitor.id);
+
+          // Post data to rwjf-log
+          request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'monitor destroyed', monitor: monitor } }, json: true}, function(err, body, res) { if (err) { sails.log.warn('Unable to remote log'); }});
+
         }
       });
     });
@@ -101,6 +105,10 @@ module.exports = {
       monitor.paused = true;
       monitor.save();
       sails.sockets.blast('monitor', { verb: 'like', data: monitor });
+
+      // Post data to rwjf-log
+      request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'like', monitor: monitor } }, json: true}, function(err, body, res) { if (err) { sails.log.warn('Unable to remote log'); }});
+
       return res.json(monitor);
     });
   },
