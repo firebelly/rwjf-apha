@@ -30,7 +30,7 @@ module.exports = {
 
   // Method to find an Idea not currently shown on a Monitor, then associate to Monitor and save
   findFreshIdea: function(id, cb) {
-    sails.log.info('Finding fresh idea for monitor '+id);
+    sails.log.verbose('Finding fresh idea for monitor '+id);
     Monitor.findOne(id).exec(function (err, thisMonitor) {
       if (err) return cb(err);
       if (!thisMonitor) {
@@ -42,7 +42,7 @@ module.exports = {
       Idea.count({ published: true, monitor: null }).exec(function(err, numIdeas) {
         if (err) return cb(err);
         var randIdea = Math.floor(Math.random() * numIdeas);
-        sails.log.info(numIdeas + ' ideas, choosing ' + randIdea);
+        sails.log.verbose(numIdeas + ' ideas, choosing ' + randIdea);
         // Idea.find().where({ published: true, monitor: null }).sort({ num_views: 'ASC' }).limit(1).exec(function foundIdeas(err, ideas) {
         Idea.find().where({ published: true, monitor: null }).skip(randIdea).limit(1).exec(function foundIdeas(err, ideas) {
           if (err) return cb(err);
@@ -51,7 +51,7 @@ module.exports = {
             return cb();
           }
           var idea = ideas[0];
-          sails.log.info('found idea' + idea.id + ' ' + idea.idea_name);
+          sails.log.verbose('found idea' + idea.id + ' ' + idea.idea_name);
           idea.num_views++;
           idea.monitor = thisMonitor.id;
           idea.save();
