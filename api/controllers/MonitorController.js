@@ -4,6 +4,8 @@
  * @description :: Server-side logic for managing monitors
  */
 
+var request = require('request');
+
 // Monitor refresh interval runs periodically to update 
 var refreshInterval = setInterval(function(){
   Monitor.find().where({paused: false}).populate('idea').sort({ updatedAt: 'ASC' }).limit(1).exec(function foundMonitors(err, monitors) {
@@ -11,6 +13,8 @@ var refreshInterval = setInterval(function(){
       sails.log.error(err);
     } else if (monitors.length === 0) {
       sails.log.warn('No monitors found');
+      // Post data to rwjf-log
+      request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'no monitors found' }}, json: true});
     } else {
       var monitor = monitors[0];
       var oldIdea = monitor.idea;
@@ -73,6 +77,9 @@ module.exports = {
         // Populate idea, broadcast to sockets
         Monitor.findOne(monitor.id).populate('idea').exec(function(err, refreshedMonitor) {
           sails.sockets.blast('monitor', { verb: 'refresh', data: refreshedMonitor });
+
+          // Post data to rwjf-log
+          request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new monitor', monitor: refreshedMonitor } }, json: true});
 
           res.view('monitor/show', {
             monitor: refreshedMonitor,

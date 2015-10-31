@@ -6,6 +6,7 @@
 
 var fs = require('fs-extra');
 var conf = sails.config.custom;
+var request = require('request');
 
 module.exports = {
 
@@ -25,19 +26,23 @@ module.exports = {
     published: { type: 'boolean' },
     num_likes: { type: 'integer', defaultsTo: 0 },
     num_views: { type: 'integer', defaultsTo: 0 },
-    monitor: { type: 'string', defaultsTo: null }
+    monitor: { 
+      model: 'monitor'
+    }
   },
 
   // Move queue directory of photos to photos/idea.id, recreate /queue for next idea
   afterCreate: function(idea, cb) {
     fs.move(conf.photosDir + '/queue', conf.photosDir + '/' + idea.id, function (err) {
-      if (err) cb(err);
+      if (err) return cb(err);
       sails.log.verbose('Moved queue to ' + conf.photosDir + '/' + idea.id + ' OK!');
       fs.mkdir(conf.photosDir + '/queue', function (err) {
-        if (err) cb(err);
+        if (err) return cb(err);
         sails.log.verbose('Made dir '+conf.photosDir + '/queue' + ' OK!');
       });
     });
+    // Post data to rwjf-log
+    request.post({ url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new idea', content: idea }}, json: true});
     cb();
   },
 
