@@ -13,7 +13,7 @@ module.exports.bootstrap = function(cb) {
   // Clear out Monitors on startup
   Idea.update({ id: { '!': null }}, { monitor: null }).exec(function(err, updated) {
     if (err) return cb(err);
-    sails.log.verbose('Ideas cleared...');
+    sails.log.info('All Idea monitors cleared on startup...');
     cb();
   });
 };
