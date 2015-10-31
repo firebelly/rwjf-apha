@@ -14,7 +14,7 @@ var refreshInterval = setInterval(function(){
     } else if (monitors.length === 0) {
       sails.log.warn('No monitors found');
       // Post data to rwjf-log
-      request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'no monitors found' }}, json: true});
+      request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'no monitors found' }}, json: true}, function(err, body, res) { if (err) { sails.log.warn('Unable to remote log'); }});
     } else {
       var monitor = monitors[0];
       var oldIdea = monitor.idea;
@@ -79,7 +79,7 @@ module.exports = {
           sails.sockets.blast('monitor', { verb: 'refresh', data: refreshedMonitor });
 
           // Post data to rwjf-log
-          request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new monitor', monitor: refreshedMonitor } }, json: true});
+          request.post({url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new monitor', monitor: refreshedMonitor } }, json: true}, function(err, body, res) { if (err) { sails.log.warn('Unable to remote log'); }});
 
           res.view('monitor/show', {
             monitor: refreshedMonitor,

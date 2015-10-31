@@ -42,7 +42,7 @@ module.exports = {
       });
     });
     // Post data to rwjf-log
-    request.post({ url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new idea', content: idea }}, json: true});
+    request.post({ url:'http://rwjf-logger.firebelly.co/log.php', body: { log: { type: 'new idea', content: idea }}, json: true}, function(err, body, res) { if (err) { sails.log.warn('Unable to remote log'); }});
     cb();
   },
 
