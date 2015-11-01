@@ -37,7 +37,7 @@ var refreshInterval = setInterval(function(){
   });
 
   // Clean up old monitors that haven't pinged in a minute
-  var moldyMonitorDate = new Date().getTime() - 60000;
+  var moldyMonitorDate = new Date().getTime() - 120000;
   Monitor.find().where({ ping: { '<': moldyMonitorDate } }).populate('idea').exec(function foundMonitors(err, monitors) {
     _.each(monitors, function(monitor) {
       if (monitor.idea) {
@@ -58,7 +58,7 @@ var refreshInterval = setInterval(function(){
     });
   });
 
-}, 6000);
+}, 3000);
 
 module.exports = {
 
@@ -103,6 +103,7 @@ module.exports = {
       monitor.idea.num_likes += 1;
       monitor.idea.save();
       monitor.paused = true;
+      monitor.ping = new Date().getTime() + 5000;
       monitor.save();
       sails.sockets.blast('monitor', { verb: 'like', data: monitor });
 
