@@ -39,6 +39,7 @@ module.exports.routes = {
   '/monitor/unpause/:id': 'MonitorController.unpause',
   'get /idea/new': 'IdeaController.new',
   '/photos/:id': 'IdeaController.photos',
+  'get /csv': 'ExportController.csv',
 
   /***************************************************************************
   *                                                                          *
