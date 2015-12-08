@@ -9,10 +9,8 @@ var moment = require('moment');
 
 module.exports = {
   csv: function (req, res) {
-    // Idea.query("select id, name, email from ", function(err, list){ 
     Idea.find().sort({createdAt: 'DESC'}).exec(function foundIdeas (err, ideas) {
       if (err) console.log(err);
-      // Send a CSV response          
       var config = {
         fields : [
           'idea_name',
